@@ -5,8 +5,8 @@
 /* eslint no-param-reassign: 0 */
 
 // import shortUuid from "short-uuid";
-import Raven from "raven-js";
-import { Storage } from "aws-amplify";
+import Raven from 'raven-js';
+import { Storage } from 'aws-amplify';
 
 // const uuidv4 = () => shortUuid().fromUUID(shortUuid.uuid());
 
@@ -22,24 +22,24 @@ function stories(state = [], action) {
   // console.log(action);
 
   switch (type) {
-    case "CREATE_STORY":
-      console.log("creating a story");
+    case 'CREATE_STORY':
+      console.log('creating a story');
       return [payload, ...state];
 
-    case "UPDATE_STORY":
-      console.log("updating a story");
+    case 'UPDATE_STORY':
+      console.log('updating a story');
       return [
         ...state.slice(0, storyIndex),
         { ...state[storyIndex], ...payload },
         ...state.slice(storyIndex + 1)
       ];
 
-    case "DELETE_STORY":
-      console.log("deleting a story");
+    case 'DELETE_STORY':
+      console.log('deleting a story');
       return [...state.slice(0, storyIndex), ...state.slice(storyIndex + 1)];
 
-    case "SYNC_STORY":
-      console.log("sync/update a story");
+    case 'SYNC_STORY':
+      console.log('sync/update a story');
       if (!payload.poll) payload.poll = [];
       const prevStory = state.find((story) => story.id === payload.id);
       if (!prevStory) return [payload, ...state];
@@ -50,8 +50,8 @@ function stories(state = [], action) {
         return story;
       });
 
-    case "SYNC_AND_SAVE_STORY":
-      console.log("sync/update a story");
+    case 'SYNC_AND_SAVE_STORY':
+      console.log('sync/update a story');
       if (!payload.poll) payload.poll = [];
       // if (!payload.version) payload.version = 0;
       // payload.version++;
@@ -67,8 +67,8 @@ function stories(state = [], action) {
         return story;
       });
 
-    case "CREATE_INTERVIEWEE":
-      console.log("creating interviewee");
+    case 'CREATE_INTERVIEWEE':
+      console.log('creating interviewee');
       return [
         ...state.slice(0, storyIndex),
         {
@@ -78,8 +78,8 @@ function stories(state = [], action) {
         ...state.slice(storyIndex + 1)
       ];
 
-    case "UPDATE_INTERVIEWEE":
-      console.log("updating interviewee");
+    case 'UPDATE_INTERVIEWEE':
+      console.log('updating interviewee');
       const updateStoryInterviewees = state[storyIndex].interviewees;
       return [
         ...state.slice(0, storyIndex),
@@ -94,8 +94,8 @@ function stories(state = [], action) {
         ...state.slice(storyIndex + 1)
       ];
 
-    case "DELETE_INTERVIEWEE":
-      console.log("deleting interviewee");
+    case 'DELETE_INTERVIEWEE':
+      console.log('deleting interviewee');
       const deleteStoryInterviewees = state[storyIndex].interviewees;
       return [
         ...state.slice(0, storyIndex),
@@ -109,8 +109,8 @@ function stories(state = [], action) {
         ...state.slice(storyIndex + 1)
       ];
 
-    case "ADD_STORYLINE_ITEM":
-      console.log("adding storyline item");
+    case 'ADD_STORYLINE_ITEM':
+      console.log('adding storyline item');
       if (!state[storyIndex].interviewees[intervieweeIndex].storyline) {
         state[storyIndex].interviewees[intervieweeIndex].storyline = [];
       }
@@ -134,8 +134,8 @@ function stories(state = [], action) {
       ];
       return ADD_STORYLINE_ITEM_STATE;
 
-    case "UPDATE_STORYLINE_ITEM":
-      console.log("updating storyline item");
+    case 'UPDATE_STORYLINE_ITEM':
+      console.log('updating storyline item');
       if (!state[storyIndex].interviewees[intervieweeIndex].storyline) {
         state[storyIndex].interviewees[intervieweeIndex].storyline = [];
       }
@@ -164,8 +164,8 @@ function stories(state = [], action) {
       ];
       return UPDATE_STORYLINE_ITEM_STATE;
 
-    case "MOVE_STORYLINE_ITEM":
-      console.log("moving storyline item");
+    case 'MOVE_STORYLINE_ITEM':
+      console.log('moving storyline item');
       const { to, from } = payload;
       const moveStorylineArr =
         state[storyIndex].interviewees[intervieweeIndex].storyline;
@@ -188,8 +188,8 @@ function stories(state = [], action) {
       ];
       return MOVE_STORYLINE_ITEM_STATE;
 
-    case "DELETE_STORYLINE_ITEM":
-      console.log("deleting storyline item");
+    case 'DELETE_STORYLINE_ITEM':
+      console.log('deleting storyline item');
       const deleteStorylineArr =
         state[storyIndex].interviewees[intervieweeIndex].storyline;
       const DELETE_STORYLINE_ITEM_STATE = [
@@ -224,22 +224,22 @@ function storiesWrapper(state = [], action) {
   const newState = stories(state, action);
 
   try {
-    if (typeof storyIndex !== "number") {
-      console.log("no storyIndex");
+    if (typeof storyIndex !== 'number') {
+      console.log('no storyIndex');
       // return newState;
     }
 
     let storyId = null;
 
-    if (typeof storyIndex === "number" && state[storyIndex])
+    if (typeof storyIndex === 'number' && state[storyIndex])
       storyId = state[storyIndex].id;
-    if (type === "CREATE_STORY") storyId = payload.id;
-    if (type === "SYNC_AND_SAVE_STORY") storyId = payload.id;
+    if (type === 'CREATE_STORY') storyId = payload.id;
+    if (type === 'SYNC_AND_SAVE_STORY') storyId = payload.id;
 
     if (!storyId) return newState; // storyId = `s0_tmp_${uuidv4()}`;
 
     let currentStory = newState.find((story) => story.id === storyId);
-    if (type === "DELETE_STORY")
+    if (type === 'DELETE_STORY')
       currentStory = state.find((story) => story.id === storyId);
     console.log(currentStory);
 
@@ -251,38 +251,38 @@ function storiesWrapper(state = [], action) {
     if (!currentStory.version) currentStory.version = 0;
     currentStory.version++;
 
-    if (type === "SYNC_AND_SAVE_STORY") currentStory.version--;
+    if (type === 'SYNC_AND_SAVE_STORY') currentStory.version--;
 
-    if (type === "CREATE_STORY" || type === "SYNC_AND_SAVE_STORY") {
+    if (type === 'CREATE_STORY' || type === 'SYNC_AND_SAVE_STORY') {
       Storage.put(
         `stories/${storyId}/story.json`,
         JSON.stringify(currentStory),
         {
-          bucket: "data.interviewjs.io",
-          level: "private",
-          contentType: "application/json"
+          bucket: 'data.interviewjs.io',
+          level: 'private',
+          contentType: 'application/json'
         }
       )
         .then((result) => console.log(result))
         .catch((err) => console.log(err));
-    } else if (type === "SYNC_STORY") {
+    } else if (type === 'SYNC_STORY') {
       // NOOP;
-    } else if (type === "DELETE_STORY") {
+    } else if (type === 'DELETE_STORY') {
       Storage.put(
         `stories-deleted/${storyId}/story.json`,
         JSON.stringify(currentStory),
         {
-          bucket: "data.interviewjs.io",
-          level: "private",
-          contentType: "application/json"
+          bucket: 'data.interviewjs.io',
+          level: 'private',
+          contentType: 'application/json'
         }
       )
         .then((result) => {
           console.log(result);
           // now delete
           Storage.remove(`stories/${storyId}/story.json`, {
-            bucket: "data.interviewjs.io",
-            level: "private"
+            bucket: 'data.interviewjs.io',
+            level: 'private'
           })
             .then((result2) => console.log(result2))
             .catch((err) => console.log(err));
@@ -293,9 +293,9 @@ function storiesWrapper(state = [], action) {
         `stories/${storyId}/story.json`,
         JSON.stringify(currentStory),
         {
-          bucket: "data.interviewjs.io",
-          level: "private",
-          contentType: "application/json"
+          bucket: 'data.interviewjs.io',
+          level: 'private',
+          contentType: 'application/json'
         }
       )
         .then((result) => console.log(result))

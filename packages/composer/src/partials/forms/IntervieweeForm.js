@@ -26,22 +26,24 @@ import {
   PageSubtitle,
   Separator,
   TextInput,
-  Tip,
+  Tip
 } from "interviewjs-styleguide";
 
 import validateField from "./validateField";
 
+
 const fileToKey = (data, storyId) => {
-  const { name, type } = data;
-  // console.log(name, type);
+    const { name, type } = data;
+    // console.log(name, type);
 
-  let namespace = storyId;
-  if (namespace.indexOf("_")) namespace = namespace.split("_").pop();
-  if (namespace.length < 36) namespace = shortUuid().toUUID(namespace);
+    let namespace = storyId;
+    if (namespace.indexOf("_")) namespace = namespace.split("_").pop();
+    if (namespace.length < 36) namespace = shortUuid().toUUID(namespace);
 
-  const uuid = uuidv5(`${type},${name}`, namespace);
-  return `${shortUuid().fromUUID(uuid)}-${name}`;
+    const uuid = uuidv5(`${type},${name}`, namespace);
+    return `${shortUuid().fromUUID(uuid)}-${name}`;
 };
+
 
 const ColorPickerWrapper = css.span`
   position: absolute;
@@ -66,10 +68,10 @@ export default class IntervieweeForm extends Component {
       formData: this.props.interviewee,
       formValidation: {
         name: null,
-        title: null,
+        title: null
       },
       moreDropdown: false,
-      colorPicker: false,
+      colorPicker: false
     };
     this.closeColorPicker = this.closeColorPicker.bind(this);
     this.deleteInterviewee = this.deleteInterviewee.bind(this);
@@ -87,13 +89,13 @@ export default class IntervieweeForm extends Component {
 
   handleChange(e) {
     this.setState({
-      formData: { ...this.state.formData, [e.target.name]: e.target.value },
+      formData: { ...this.state.formData, [e.target.name]: e.target.value }
     });
   }
 
   handleChangeColor(color) {
     this.setState({
-      formData: { ...this.state.formData, color: color.hex },
+      formData: { ...this.state.formData, color: color.hex }
     });
   }
 
@@ -105,9 +107,17 @@ export default class IntervieweeForm extends Component {
     const { type, preview, name } = f[0];
     const offScreenImage = document.createElement("img");
     offScreenImage.addEventListener("load", () => {
-      const targetWidth = offScreenImage.width > 300 ? 300 : offScreenImage.width;
-      const targetHeight = parseInt(targetWidth * offScreenImage.height / offScreenImage.width, 10);
-      console.log(`${offScreenImage.width} x ${offScreenImage.height} => ${targetWidth} x ${targetHeight}`);
+      const targetWidth =
+        offScreenImage.width > 300 ? 300 : offScreenImage.width;
+      const targetHeight = parseInt(
+        targetWidth * offScreenImage.height / offScreenImage.width,
+        10
+      );
+      console.log(
+        `${offScreenImage.width} x ${
+          offScreenImage.height
+        } => ${targetWidth} x ${targetHeight}`
+      );
 
       const offScreenCanvas = document.createElement("canvas");
       offScreenCanvas.width = targetWidth;
@@ -119,10 +129,10 @@ export default class IntervieweeForm extends Component {
           unsharpAmount: 80,
           unsharpRadius: 0.6,
           unsharpThreshold: 2,
-          transferable: true,
+          transferable: true
         })
-        .then(result => pica.toBlob(result, "image/jpeg", 0.9))
-        .then(blob => {
+        .then((result) => pica.toBlob(result, "image/jpeg", 0.9))
+        .then((blob) => {
           // const reader = new FileReader();
           // reader.onloadend = () => {
           //   console.log("data url length", reader.result.length);
@@ -133,25 +143,22 @@ export default class IntervieweeForm extends Component {
           // };
           // reader.readAsDataURL(blob);
           //
-          const fkey = fileToKey({ type, name: sanitizeFilename(name.replace(/ /g, "_")) }, this.props.story.id);
+          const fkey = fileToKey({type, name: sanitizeFilename(name.replace(/ /g, "_"))}, this.props.story.id);
           Storage.put(`files/${this.props.user.id}/${this.props.story.id}/${fkey}`, blob, {
             bucket: "data.interviewjs.io",
             level: "public",
-            contentType: type,
+            contentType: type
           })
-            .then(async result => {
-              console.log(result);
-              this.setState({
-                formData: {
-                  ...this.state.formData,
-                  avatar: `https://story.interviewjs.io/files/${this.props.user.id}/${this.props.story.id}/${fkey}`,
-                },
-              });
-            })
-            .catch(err => console.log(err));
+          .then (async result => {
+            console.log(result);
+            this.setState({
+              formData: { ...this.state.formData, avatar: `https://story.interviewjs.io/files/${this.props.user.id}/${this.props.story.id}/${fkey}` }
+            });
+          })
+          .catch(err => console.log(err));
           //
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     });
     offScreenImage.src = preview;
   }
@@ -162,8 +169,8 @@ export default class IntervieweeForm extends Component {
     this.setState({
       formValidation: {
         ...this.state.formValidation,
-        [name]: validateField(target),
-      },
+        [name]: validateField(target)
+      }
     });
   }
 
@@ -183,14 +190,19 @@ export default class IntervieweeForm extends Component {
       <Dropdown
         html={
           <DropdownContent>
-            <PageSubtitle typo="p4">Sure to delete this interviewee permanently?</PageSubtitle>
+            <PageSubtitle typo="p4">
+              Sure to delete this interviewee permanently?
+            </PageSubtitle>
             <Separator silent size="x" />
             <PageParagraph typo="p5">
-              All related data including transcript and storyline will be irreversibly lost.
+              All related data including transcript and storyline will be
+              irreversibly lost.
             </PageParagraph>
             <Separator silent size="x" />
             <Actionbar>
-              <Action onClick={() => this.toggleDropdown("moreDropdown")}>Cancel</Action>
+              <Action onClick={() => this.toggleDropdown("moreDropdown")}>
+                Cancel
+              </Action>
               <Action tone="negative" onClick={this.deleteInterviewee}>
                 Delete
               </Action>
@@ -202,42 +214,55 @@ export default class IntervieweeForm extends Component {
         position="left"
       >
         <Tip position="bottom" title="Delete interviewee">
-          <Action iconic onClick={e => this.toggleDropdown("moreDropdown", e)} secondary tone="negative">
+          <Action
+            iconic
+            onClick={(e) => this.toggleDropdown("moreDropdown", e)}
+            secondary
+            tone="negative"
+          >
             <Icon name="remove-persona" />
           </Action>
         </Tip>
       </Dropdown>
     );
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form onSubmit={(e) => this.handleSubmit(e)}>
         <FormItem>
           <Label>Name</Label>
-          <CharacterCount>{35 - this.state.formData.name.length}</CharacterCount>
+          <CharacterCount>
+            {35 - this.state.formData.name.length}
+          </CharacterCount>
           <TextInput
             input
             maxLength="35"
             minLength="1"
             name="name"
-            onBlur={e => this.handleBlur(e)}
-            onChange={e => this.handleChange(e)}
+            onBlur={(e) => this.handleBlur(e)}
+            onChange={(e) => this.handleChange(e)}
             placeholder="Name of interviewee"
             required
             valid={this.state.formValidation.name}
-            value={this.state.formData.name === "Name of interviewee" ? "" : this.state.formData.name}
+            value={
+              this.state.formData.name === "Name of interviewee"
+                ? ""
+                : this.state.formData.name
+            }
           />
           <Legend tip="Name of your interviewee">i</Legend>
         </FormItem>
         <Separator size="m" silent />
         <FormItem>
           <Label>Title</Label>
-          <CharacterCount>{80 - this.state.formData.title.length}</CharacterCount>
+          <CharacterCount>
+            {80 - this.state.formData.title.length}
+          </CharacterCount>
           <TextInput
             input
             maxLength="80"
             minLength="1"
             name="title"
-            onBlur={e => this.handleBlur(e)}
-            onChange={e => this.handleChange(e)}
+            onBlur={(e) => this.handleBlur(e)}
+            onChange={(e) => this.handleChange(e)}
             placeholder="Title e.g. President, Farmer, Mother"
             required
             valid={this.state.formValidation.title}
@@ -248,16 +273,20 @@ export default class IntervieweeForm extends Component {
         <Separator size="m" silent />
         <FormItem>
           <Label>Bio</Label>
-          <CharacterCount>{300 - this.state.formData.bio.length}</CharacterCount>
+          <CharacterCount>
+            {300 - this.state.formData.bio.length}
+          </CharacterCount>
           <TextInput
             area
             maxLength="300"
             name="bio"
-            onChange={e => this.handleChange(e)}
+            onChange={(e) => this.handleChange(e)}
             placeholder="Who is this person and why is s/he important in this story?"
             value={this.state.formData.bio}
           />
-          <Legend tip="Who is this and what role does this person have in your story? Does s/he have a particular view on the issues raised?">
+          <Legend
+            tip="Who is this and what role does this person have in your story? Does s/he have a particular view on the issues raised?"
+          >
             i
           </Legend>
         </FormItem>
@@ -267,24 +296,22 @@ export default class IntervieweeForm extends Component {
             <FormItem>
               <Label>Profile image</Label>
 
-              {/*
+{ /*
                <S3Image level="public" title="Select file" path={`files/interviewees/${this.props.interviewee.id}`} picker fileToKey={fileToKey} />
-*/}
+*/ }
               <Dropzone
                 accept="image/jpeg, image/jpg, image/svg, image/gif, image/png"
-                ref={node => {
+                ref={(node) => {
                   this.dropzoneRef = node;
                 }}
-                onDrop={accepted => {
+                onDrop={(accepted) => {
                   this.handleFile(accepted);
                 }}
                 style={{ display: "none" }}
               >
                 <p>Drop file here</p>
               </Dropzone>
-              {this.state.formData && this.state.formData.avatar ? (
-                <img src={this.state.formData.avatar} alt="Avatar Preview" style={{ width: "100%" }} />
-              ) : null}
+              { this.state.formData && this.state.formData.avatar ? <img src={this.state.formData.avatar} alt="Avatar Preview" style={{width: "100%"}}/> : null }
               <TextInput
                 file
                 place="left"
@@ -292,7 +319,9 @@ export default class IntervieweeForm extends Component {
                   this.dropzoneRef.open();
                 }}
               />
-              <Legend tip="Is there a photo of the person and do you have permission to use it?">i</Legend>
+              <Legend tip="Is there a photo of the person and do you have permission to use it?">
+                i
+              </Legend>
             </FormItem>
           </Container>
           <Container flex={[0, 0, "50%"]}>
@@ -307,7 +336,9 @@ export default class IntervieweeForm extends Component {
                 value={this.state.formData.color}
                 nooffset
               />
-              <Legend tip="Choose the colour of this person’s chat text bubbles">i</Legend>
+              <Legend tip="Choose the colour of this person’s chat text bubbles">
+                i
+              </Legend>
             </FormItem>
           </Container>
         </Container>
@@ -329,14 +360,17 @@ export default class IntervieweeForm extends Component {
         </Actionbar>
         {this.state.colorPicker
           ? [
-              <ColorPickerOverlay key="colorpickeroverlay" onClick={this.closeColorPicker} />,
+              <ColorPickerOverlay
+                key="colorpickeroverlay"
+                onClick={this.closeColorPicker}
+              />,
               <ColorPickerWrapper key="colorpicker">
                 <SketchPicker
                   disableAlpha
                   color={this.state.formData.color}
                   onChangeComplete={this.handleChangeColor}
                 />
-              </ColorPickerWrapper>,
+              </ColorPickerWrapper>
             ]
           : null}
       </Form>
@@ -357,8 +391,8 @@ IntervieweeForm.propTypes = {
     bio: string,
     color: string,
     name: string,
-    title: string,
-  }),
+    title: string
+  })
 };
 
 IntervieweeForm.defaultProps = {
@@ -370,7 +404,7 @@ IntervieweeForm.defaultProps = {
     bio: "",
     color: "",
     name: "",
-    title: "",
+    title: ""
   },
-  persistent: false,
+  persistent: false
 };

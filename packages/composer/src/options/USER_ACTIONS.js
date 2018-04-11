@@ -10,7 +10,7 @@ const USER_ACTIONS = {
       "Says who?",
       "Why?",
       "OK",
-      "Got it",
+      "Got it"
     ],
     image: [
       "Photo please! ",
@@ -21,7 +21,7 @@ const USER_ACTIONS = {
       "Is there evidence?",
       "Give me an image",
       "Let me see!",
-      "Show me a photo",
+      "Show me a photo"      
     ],
     link: [
       "Is this true?",
@@ -34,10 +34,20 @@ const USER_ACTIONS = {
       "What’s the source?",
       "Prove it!",
       "Any documentation?",
-      "Can you send me a link?",
+      "Can you send me a link?"
     ],
-    embed: ["Can you show this on a map?", "Is it on Youtube?", "Is it on Google Maps?"],
-    map: ["Where was this?", "Where is that?", "What’s the location?", "Show me a map!", "Don’t know that place"],
+    embed: [
+      "Can you show this on a map?",
+      "Is it on Youtube?",
+      "Is it on Google Maps?"
+    ],
+    map: [
+      "Where was this?",
+      "Where is that?",
+      "What’s the location?",
+      "Show me a map!",
+      "Don’t know that place"
+    ],
     media: [
       "Was this reported?",
       "Did anyone film?",
@@ -45,8 +55,8 @@ const USER_ACTIONS = {
       "What did the news say?",
       "Is there footage?",
       "Any witnesses?",
-      "Is it on youtube?",
-    ],
+      "Is it on youtube?"
+    ]
   },
   explore: {
     text: [
@@ -59,7 +69,7 @@ const USER_ACTIONS = {
       "Says who?",
       "Why?",
       "OK",
-      "Got it",
+      "Got it"
     ],
     image: [
       "Photo please! ",
@@ -70,7 +80,7 @@ const USER_ACTIONS = {
       "Is there evidence?",
       "Give me an image",
       "Let me see!",
-      "Show me a photo",
+      "Show me a photo"      
     ],
     link: [
       "Is this true?",
@@ -83,10 +93,20 @@ const USER_ACTIONS = {
       "What’s the source?",
       "Prove it!",
       "Any documentation?",
-      "Can you send me a link?",
+      "Can you send me a link?"      
     ],
-    embed: ["Can you show this on a map?", "Is it on Youtube?", "Is it on Google Maps?"],
-    map: ["Where was this?", "Where is that?", "What’s the location?", "Show me a map!", "Don’t know that place"],
+    embed: [
+      "Can you show this on a map?",
+      "Is it on Youtube?",
+      "Is it on Google Maps?"
+    ],
+    map: [
+      "Where was this?",
+      "Where is that?",
+      "What’s the location?",
+      "Show me a map!",
+      "Don’t know that place"
+    ],
     media: [
       "Was this reported?",
       "Did anyone film?",
@@ -94,9 +114,9 @@ const USER_ACTIONS = {
       "What did the news say?",
       "Is there footage?",
       "Any witnesses?",
-      "Is it on youtube?",
-    ],
-  },
+      "Is it on youtube?"
+    ]
+  }
 };
 
 export default USER_ACTIONS;

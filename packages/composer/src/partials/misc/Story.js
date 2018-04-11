@@ -16,7 +16,7 @@ import {
   radius,
   setSpace,
   time,
-  disselect,
+  disselect
 } from "interviewjs-styleguide";
 
 import { DeleteModal, DetailsModal, ErrorBoundary } from "../";
@@ -71,7 +71,7 @@ export default class Story extends React.Component {
     this.state = {
       deleteModal: false,
       detailsModal: "",
-      settingsDropdown: false,
+      settingsDropdown: false
     };
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.toggleDetailsModal = this.toggleDetailsModal.bind(this);
@@ -79,12 +79,14 @@ export default class Story extends React.Component {
     this.updateStory = this.updateStory.bind(this);
   }
   toggleDetailsModal(tab) {
-    return tab ? this.setState({ detailsModal: tab, settingsDropdown: false }) : this.setState({ detailsModal: "" });
+    return tab
+      ? this.setState({ detailsModal: tab, settingsDropdown: false })
+      : this.setState({ detailsModal: "" });
   }
   toggleDeleteModal() {
     this.setState({
       deleteModal: !this.state.deleteModal,
-      settingsDropdown: false,
+      settingsDropdown: false
     });
   }
   toggleDropdown(dropdown) {
@@ -98,13 +100,22 @@ export default class Story extends React.Component {
     return [
       <ErrorBoundary key="boundary">
         <Container key="body">
-          <StoryEl {...this.props} dir="row" fill="white" onClick={() => this.props.openStory()} padded shift>
+          <StoryEl
+            {...this.props}
+            dir="row"
+            fill="white"
+            onClick={() => this.props.openStory()}
+            padded
+            shift
+          >
             <Container flex={[1, 2, "60%"]}>
               <StoryTitle typo="h2">{this.props.story.title}</StoryTitle>
               <StorySummary typo="p5">{this.props.story.intro}</StorySummary>
             </Container>
             <Container flex={[2, 1, "20%"]} align="center" hide="phone">
-              <StoryDate typo="p5">{format(this.props.story.modDate, "D MMM YYYY")}</StoryDate>
+              <StoryDate typo="p5">
+                {format(this.props.story.modDate, "D MMM YYYY")}
+              </StoryDate>
             </Container>
             <Container flex={[2, 1, "20%"]} align="right">
               <AvatarList>
@@ -138,7 +149,9 @@ export default class Story extends React.Component {
                 <DropdownContent>
                   <ul>
                     <li>
-                      <Action onClick={() => this.toggleDetailsModal("meta")}>Story Elements</Action>
+                      <Action onClick={() => this.toggleDetailsModal("meta")}>
+                        Story Elements
+                      </Action>
                     </li>
                     <li>
                       <Action tone="negative" onClick={this.toggleDeleteModal}>
@@ -149,7 +162,10 @@ export default class Story extends React.Component {
                 </DropdownContent>
               }
             >
-              <Action iconic onClick={() => this.toggleDropdown("settingsDropdown")}>
+              <Action
+                iconic
+                onClick={() => this.toggleDropdown("settingsDropdown")}
+              >
                 <Icon name="hdots" />
               </Action>
             </Dropdown>
@@ -157,31 +173,27 @@ export default class Story extends React.Component {
         </Container>
       </ErrorBoundary>,
       detailsModal !== "" ? (
-        <ErrorBoundary>
-          <DetailsModal
-            {...this.props}
-            handleClose={() => this.toggleDetailsModal()}
-            isOpen
-            key="DetailsModal"
-            story={this.props.story}
-            storyIndex={this.props.storyIndex}
-            tab={this.state.detailsModal}
-            updateStory={this.updateStory}
-          />
-        </ErrorBoundary>
+        <ErrorBoundary><DetailsModal
+          {...this.props}
+          handleClose={() => this.toggleDetailsModal()}
+          isOpen
+          key="DetailsModal"
+          story={this.props.story}
+          storyIndex={this.props.storyIndex}
+          tab={this.state.detailsModal}
+          updateStory={this.updateStory}
+        /></ErrorBoundary>
       ) : null,
       deleteModal ? (
-        <ErrorBoundary>
-          <DeleteModal
-            {...this.props}
-            deleteStory={() => this.props.deleteStory(this.props.storyIndex)}
-            handleClose={() => this.toggleDeleteModal()}
-            isOpen
-            key="DeleteModal"
-            story={this.props.story}
-          />
-        </ErrorBoundary>
-      ) : null,
+        <ErrorBoundary><DeleteModal
+          {...this.props}
+          deleteStory={() => this.props.deleteStory(this.props.storyIndex)}
+          handleClose={() => this.toggleDeleteModal()}
+          isOpen
+          key="DeleteModal"
+          story={this.props.story}
+        /></ErrorBoundary>
+      ) : null
     ];
   }
 }
@@ -192,12 +204,12 @@ Story.propTypes = {
     interviewees: array.isRequired,
     intro: string.isRequired,
     pubDate: string.isRequired,
-    title: string.isRequired,
+    title: string.isRequired
   }).isRequired,
   deleteStory: func.isRequired,
   storyIndex: number.isRequired,
   openStory: func.isRequired,
-  updateStory: func.isRequired,
+  updateStory: func.isRequired
 };
 
 Story.defaultProps = {};

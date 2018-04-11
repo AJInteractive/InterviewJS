@@ -14,6 +14,7 @@
     "axios": "^0.18.0",
     "clone": "^1.0.4",
     "date-fns": "^1.29.0",
+    "firebase": "^4.12.0",
     "interviewjs-styleguide": "*",
     "lodash": "^4.17.5",
     "md5": "^2.2.1",
@@ -26,6 +27,7 @@
     "react-dom": "16.3.1",
     "react-color": "^2.14.1",
     "react-dropzone": "^4.2.9",
+    "react-firebaseui": "^1.1.9",
     "react-ga": "^2.4.1",
     "react-joyride": "^1.11.4",
     "react-modal": "3.3.2",
@@ -70,17 +72,19 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject",
-    "prettier": "prettier --print-width=120 --trailing-comma es5",
+    "prettier": "prettier --single-quote --print-width=120 --trailing-comma es5",
     "format": "npm run prettier -- --write '{,!(build|generators)/**/}*.js'",
     "precommit": "lint-staged",
-    "eslint-check":
-      "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "lint": "eslint **/*.js --quiet",
     "lint-fix": "eslint --fix",
     "generate": "plop --plopfile generators/index.js"
   },
   "lint-staged": {
-    "{,!(build|generators)/**/}*.js": ["npm run prettier -- --write", "git add"]
+    "{,!(build|generators)/**/}*.js": [
+      "npm run prettier -- --write",
+      "git add"
+    ]
   },
   "engines": {
     "npm": ">=4",

@@ -11,7 +11,7 @@ import {
   ModalFoot,
   ModalHead,
   PageTitle,
-  Text,
+  Text
 } from "interviewjs-styleguide";
 
 export default class DeleteModal extends React.Component {
@@ -21,7 +21,12 @@ export default class DeleteModal extends React.Component {
   }
   render() {
     return (
-      <ReactModal ariaHideApp={false} isOpen={this.props.isOpen} onRequestClose={this.props.handleClose} role="dialog">
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={this.props.isOpen}
+        onRequestClose={this.props.handleClose}
+        role="dialog"
+      >
         <Modal {...this.props}>
           <ModalHead>
             <PageTitle typo="h2">Sure to delete this story?</PageTitle>
@@ -29,8 +34,9 @@ export default class DeleteModal extends React.Component {
           <ModalBody>
             <Container align="center">
               <Text typo="p2">
-                <strong>“{this.props.story.title}”</strong> will be deleted from your InterviewJS panel. Related data
-                will remain on your Google Drive. Do you really want to proceed?
+                <strong>“{this.props.story.title}”</strong> will be deleted from
+                your InterviewJS panel. Related data will remain on your Google
+                Drive. Do you really want to proceed?
               </Text>
             </Container>
           </ModalBody>
@@ -39,7 +45,12 @@ export default class DeleteModal extends React.Component {
               <Action primary fixed onClick={this.props.handleClose}>
                 Cancel
               </Action>
-              <Action secondary tone="negative" fixed onClick={this.props.deleteStory}>
+              <Action
+                secondary
+                tone="negative"
+                fixed
+                onClick={this.props.deleteStory}
+              >
                 Delete
               </Action>
             </Actionbar>
@@ -55,8 +66,8 @@ DeleteModal.propTypes = {
   isOpen: bool.isRequired,
   deleteStory: func.isRequired,
   story: shape({
-    title: string.isRequired,
-  }).isRequired,
+    title: string.isRequired
+  }).isRequired
 };
 
 DeleteModal.defaultProps = {};
