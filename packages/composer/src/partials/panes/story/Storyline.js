@@ -2,6 +2,7 @@
 import { arrayOf, func, object, number } from "prop-types";
 import css from "styled-components";
 import React from "react";
+import Embed from "../../util/Embed"
 
 import {
   Action,
@@ -201,9 +202,7 @@ export default class Storyline extends React.Component {
             persona={role}
             theme={{ backg: interviewee.color, font:"PT sans" }}
           >
-            <a href={content.value} target="_blank">
-              {content.title ? content.title : content.value}
-            </a>
+            <Embed color={interviewee.color} title={content.title} value={content.value} />
           </Bubble>
         );
       } else if (type === "image") {

@@ -3,6 +3,7 @@ import { arrayOf, func, string, object, shape } from "prop-types";
 import css from "styled-components";
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import Embed from "../../util/Embed"
 
 import {
   Action,
@@ -109,9 +110,7 @@ class Storyline extends Component {
             ];
           case "link":
             return (
-              <a href={content.value} target="_blank">
-                {content.title ? content.title : content.value}
-              </a>
+              <Embed title={content.title} value={content.value} />
             );
           case "embed":
           case "map":
