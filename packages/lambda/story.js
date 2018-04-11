@@ -89,7 +89,7 @@ const processRecord = (record, callback) => {
         .replace("<head>", `<head>\n${meta.join("\n")}`);
 
       s3.putObject({
-        Body: `if (!window.InterviewJS.ignoreSampleStory) { window.InterviewJS.story = ${JSON.stringify(story)} ; }`,
+        Body: `window.InterviewJS.story = ${JSON.stringify(story)};`,
         ACL: "public-read",
         ContentType: "application/javascript",
         Bucket: storyBucket,

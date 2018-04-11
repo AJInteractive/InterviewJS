@@ -1,7 +1,7 @@
-import React from "react";
-import { markdown, ReactSpecimen } from "catalog";
+import React from 'react';
+import { markdown, ReactSpecimen } from 'catalog';
 
-import { Icon } from "../components";
+import { Icon } from '../components';
 
 export default () => markdown`
   ## Size variations
@@ -36,7 +36,27 @@ export default () => markdown`
 
   ${(
     <ReactSpecimen span={1}>
-      <Icon name="text" />
+      <Icon name="reorder" />
+    </ReactSpecimen>
+  )}
+  ${(
+    <ReactSpecimen span={1}>
+      <Icon name="plus" />
+    </ReactSpecimen>
+  )}
+  ${(
+    <ReactSpecimen span={1}>
+      <Icon name="info2" />
+    </ReactSpecimen>
+  )}
+  ${(
+    <ReactSpecimen span={1}>
+      <Icon name="facebook" />
+    </ReactSpecimen>
+  )}
+  ${(
+    <ReactSpecimen span={1}>
+      <Icon name="github" />
     </ReactSpecimen>
   )}
   ${(
@@ -46,7 +66,7 @@ export default () => markdown`
   )}
   ${(
     <ReactSpecimen span={1}>
-      <Icon name="image" />
+      <Icon name="mage" />
     </ReactSpecimen>
   )}
   ${(
@@ -67,6 +87,11 @@ export default () => markdown`
   ${(
     <ReactSpecimen span={1}>
       <Icon name="bubbles" />
+    </ReactSpecimen>
+  )}
+  ${(
+    <ReactSpecimen span={1}>
+      <Icon name="remove-persona" />
     </ReactSpecimen>
   )}
   ${(
@@ -131,17 +156,7 @@ export default () => markdown`
   )}
   ${(
     <ReactSpecimen span={1}>
-      <Icon name="plus" />
-    </ReactSpecimen>
-  )}
-  ${(
-    <ReactSpecimen span={1}>
       <Icon name="info" />
-    </ReactSpecimen>
-  )}
-  ${(
-    <ReactSpecimen span={1}>
-      <Icon name="info2" />
     </ReactSpecimen>
   )}
   ${(
@@ -196,22 +211,12 @@ export default () => markdown`
   )}
   ${(
     <ReactSpecimen span={1}>
+      <Icon name="text" />
+    </ReactSpecimen>
+  )}
+  ${(
+    <ReactSpecimen span={1}>
       <Icon name="embed" />
-    </ReactSpecimen>
-  )}
-  ${(
-    <ReactSpecimen span={1}>
-      <Icon name="facebook" />
-    </ReactSpecimen>
-  )}
-  ${(
-    <ReactSpecimen span={1}>
-      <Icon name="github" />
-    </ReactSpecimen>
-  )}
-  ${(
-    <ReactSpecimen span={1}>
-      <Icon name="twitter" />
     </ReactSpecimen>
   )}
   ${(
@@ -221,8 +226,7 @@ export default () => markdown`
   )}
   ${(
     <ReactSpecimen span={1}>
-      <Icon name="remove-persona" />
+      <Icon name="twitter" />
     </ReactSpecimen>
   )}
-
 `;

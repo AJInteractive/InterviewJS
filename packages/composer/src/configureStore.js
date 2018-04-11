@@ -8,9 +8,6 @@ import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import firebase from "firebase";
-import Rebase from "re-base";
-
 import Raven from "raven-js";
 import createRavenMiddleware from "raven-for-redux";
 import clone from "clone";
@@ -36,21 +33,6 @@ if (document.location.hostname !== "localhost") {
     sanitizeKeys: ['logo', 'cover', 'avatar'],
   }).install();
 }
-
-// FIREBASE
-export const firebaseApp = firebase.initializeApp({
-  apiKey: "AIzaSyAzBGoszKOt1C_T4GV84hUBpjkK08H57KY",
-  authDomain: "interviewjs-6c14d.firebaseapp.com",
-  databaseURL: "https://interviewjs-6c14d.firebaseio.com",
-  projectId: "interviewjs-6c14d",
-  storageBucket: "interviewjs-6c14d.appspot.com",
-  messagingSenderId: "126484254752"
-});
-
-
-// RE-BASE
-export const base = Rebase.createClass(firebaseApp.database());
-
 
 // PERSIST
 const persistConfig = {

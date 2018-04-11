@@ -1,6 +1,6 @@
-import { array, func, shape, number } from "prop-types";
-import css from "styled-components";
-import React from "react";
+import { array, func, shape, number } from 'prop-types';
+import css from 'styled-components';
+import React from 'react';
 
 import {
   Action,
@@ -13,9 +13,9 @@ import {
   setSpace,
   skin,
   time
-} from "interviewjs-styleguide";
+} from 'interviewjs-styleguide';
 
-import { Storyline } from "./story";
+import { Storyline } from './story';
 
 const PaneEl = css(Container)`
   height: 100%;
@@ -43,15 +43,15 @@ const IntervieweesWrapper = css.div`
   position: relative;
 `;
 const IntervieweesAction = css.span`
-  ${setSize("s")};
-  ${setSpace("mlx")};
+  ${setSize('s')};
+  ${setSpace('mlx')};
   display: inline-block;
   left: 100%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   & button {
-    ${setSize("s")};
+    ${setSize('s')};
   }
 `;
 const Interviewees = css.ol`
@@ -100,7 +100,7 @@ export default class StoryPane extends React.Component {
     const { currentInterviewee } = this.props;
     const { storyline } = interviewees[currentInterviewee];
     return (
-      <PaneEl fill="white" rounded shift dir="column">
+      <PaneEl fill="white" rounded shift dir="column" className="jr-intro">
         <PaneHead>
           <IntervieweesWrapper>
             <Interviewees>

@@ -1,6 +1,6 @@
-import { func, number, string } from "prop-types";
-import css from "styled-components";
-import React from "react";
+import { func, number, string } from 'prop-types';
+import css from 'styled-components';
+import React from 'react';
 
 import {
   Action,
@@ -21,18 +21,18 @@ import {
   time,
   Legend,
   FormItem
-} from "interviewjs-styleguide";
+} from 'interviewjs-styleguide';
 
-import PaneFrame from "./PaneFrame";
+import PaneFrame from './PaneFrame';
 
-import { GLOBALS, USER_ACTIONS } from "../../options";
+import { GLOBALS, USER_ACTIONS } from '../../options';
 
 const PaneEl = css(Container)`
   height: 100%;
 `;
 
 const UserActions = css(Container)`
-  ${setSpace("pbm")};
+  ${setSpace('pbm')};
   height: 100%;
   position: relative;
   & > div {
@@ -99,8 +99,8 @@ const UserAction = css(Container)`
       display: inline-block;
     }
     & button {
-      ${setSpace("phn")};
-      ${setSpace("pvx")};
+      ${setSpace('phn')};
+      ${setSpace('pvx')};
     }
   }
   ${PageSubtitle} {
@@ -118,13 +118,13 @@ const ActionLibList = css.ul`
   text-align: center;
 `;
 const ActionLibItem = css.li`
-  ${setSpace("phs")};
-  ${setSpace("mvx")};
+  ${setSpace('phs')};
+  ${setSpace('mvx')};
 `;
 const ActionLibAction = css.button`
-  ${setSpace("phs")};
-  ${setSpace("pvx")};
-  ${setType("x")};
+  ${setSpace('phs')};
+  ${setSpace('pvx')};
+  ${setType('x')};
   background: none;
   border-radius: ${radius.h};
   border: 1px solid transparent;
@@ -155,11 +155,11 @@ const ActionLibAction = css.button`
 `;
 
 const CustomActionHolder = css(Container)`
-  ${setSpace("phs")};
+  ${setSpace('phs')};
   width: 100%;
   input {
-    ${setSpace("pvn")};
-    ${setSpace("phx")};
+    ${setSpace('pvn')};
+    ${setSpace('phx')};
     height: 34px;
   }
 `;
@@ -173,7 +173,7 @@ const Draft = css.div`
   justify-content: center;
   width: 100%;
   & > * {
-    ${setSpace("mhx")};
+    ${setSpace('mhx')};
     max-width: 40%;
   }
 `;
@@ -185,17 +185,17 @@ export default class UserPane extends React.Component {
       enableContinue: false,
       enableExplore: false,
 
-      customContinueVal: "",
-      customExploreVal: "",
+      customContinueVal: '',
+      customExploreVal: '',
 
-      continueLibDict: "text",
+      continueLibDict: 'text',
       continueLibItem: null,
 
-      exploreLibDict: "text",
+      exploreLibDict: 'text',
       exploreLibItem: null,
 
-      exploreVal: "Omg why?",
-      continueVal: "Carry on"
+      exploreVal: 'Omg why?',
+      continueVal: 'Carry on'
     };
     this.addStorylineItem = this.addStorylineItem.bind(this);
     this.customiseActionLabel = this.customiseActionLabel.bind(this);
@@ -213,7 +213,7 @@ export default class UserPane extends React.Component {
   }
   customiseActionLabel(action, e) {
     const { value } = e.target;
-    return action === "customExploreVal"
+    return action === 'customExploreVal'
       ? this.setState({
           [action]: value,
           enableExplore: value.length > 0,
@@ -260,16 +260,16 @@ export default class UserPane extends React.Component {
         {
           enabled: enableContinue,
           value: continueVal,
-          type: enableExplore ? "ignore" : "explore"
+          type: enableExplore ? 'ignore' : 'explore'
         },
-        { enabled: enableExplore, value: exploreVal, type: "explore" }
+        { enabled: enableExplore, value: exploreVal, type: 'explore' }
       ],
-      role: "user"
+      role: 'user'
     };
     this.props.addStorylineItem(storyIndex, currentInterviewee, newUserBubble);
     this.setState({
-      customContinueVal: "",
-      customExploreVal: "",
+      customContinueVal: '',
+      customExploreVal: '',
       enableContinue: false,
       enableExplore: false,
       continueLibItem: null,
@@ -304,17 +304,13 @@ export default class UserPane extends React.Component {
                   fixed
                   primary={!enableExplore}
                   secondary={!!enableExplore}
-                  theme={{font: "PT sans"}}
+                  theme={{ font: 'PT sans' }}
                 >
                   {continueVal}
                 </Action>
               ) : null}
               {enableExplore ? (
-                <Action 
-                  fixed 
-                  primary
-                  theme={{font: "PT sans"}}
-                >
+                <Action fixed primary theme={{ font: 'PT sans' }}>
                   {exploreVal}
                 </Action>
               ) : null}
@@ -324,9 +320,9 @@ export default class UserPane extends React.Component {
           <UserActions>
             <Container className="jr-step5">
               <UserAction dir="row" active>
-                <Container flex={[0, 0, "140px"]} align="center" dir="column">
+                <Container flex={[0, 0, '140px']} align="center" dir="column">
                   <PageSubtitle typo="p4">
-                    Create an interaction:
+                    Create an interaction
                     <Tip
                       position="bottom"
                       title="Create user interactions that lead into your interview quote.  Select text options, type your own text or question, or choose a multimedia request via the tabs. It has to bein  the user’s voice."
@@ -335,16 +331,16 @@ export default class UserPane extends React.Component {
                         name="info2"
                         style={{
                           color: color.greyBlk,
-                          marginLeft: "5px",
-                          position: "relative",
-                          top: "2px"
+                          marginLeft: '5px',
+                          position: 'relative',
+                          top: '2px'
                         }}
                       />
                     </Tip>
                   </PageSubtitle>
                 </Container>
-                <Container flex={[2, 2, "auto"]} fill="grey" dir="column">
-                  <CustomActionHolder flex={[0, 0, "50px"]} dir="column">
+                <Container flex={[2, 2, 'auto']} fill="grey" dir="column">
+                  <CustomActionHolder flex={[0, 0, '50px']} dir="column">
                     <FormItem fullWidth>
                       <TextInput
                         type="text"
@@ -352,69 +348,71 @@ export default class UserPane extends React.Component {
                         maxLength={GLOBALS.fixedButtonCharLimit}
                         value={this.state.customContinueVal}
                         onChange={(e) =>
-                          this.customiseActionLabel("customContinueVal", e)
+                          this.customiseActionLabel('customContinueVal', e)
                         }
+                        style={{ paddingRight: '40px' }}
                       />
-                      <Legend 
+                      <Legend
                         tip="Type your own user interaction here - a comment or a question to lead into your the interview text in the preview panel."
+                        style={{ top: '16px' }}
                       >
                         i
                       </Legend>
                     </FormItem>
                   </CustomActionHolder>
-                  <Container flex={[1, 0, "auto"]} style={{ width: "100%" }}>
+                  <Container flex={[1, 0, 'auto']} style={{ width: '100%' }}>
                     <PaneTabs>
                       <PaneTab
-                        active={continueLibDict === "text"}
+                        active={continueLibDict === 'text'}
                         onClick={() =>
-                          this.setState({ continueLibDict: "text" })
+                          this.setState({ continueLibDict: 'text' })
                         }
                       >
                         <Icon name="text" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={continueLibDict === "link"}
+                        active={continueLibDict === 'link'}
                         onClick={() =>
-                          this.setState({ continueLibDict: "link" })
+                          this.setState({ continueLibDict: 'link' })
                         }
                       >
                         <Icon name="link" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={continueLibDict === "image"}
+                        active={continueLibDict === 'image'}
                         onClick={() =>
-                          this.setState({ continueLibDict: "image" })
+                          this.setState({ continueLibDict: 'image' })
                         }
                       >
                         <Icon name="image" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={continueLibDict === "embed"}
+                        active={continueLibDict === 'embed'}
                         onClick={() =>
-                          this.setState({ continueLibDict: "embed" })
+                          this.setState({ continueLibDict: 'embed' })
                         }
                       >
                         <Icon name="embed" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={continueLibDict === "map"}
+                        active={continueLibDict === 'map'}
                         onClick={() =>
-                          this.setState({ continueLibDict: "map" })
+                          this.setState({ continueLibDict: 'map' })
                         }
                       >
                         <Icon name="map" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={continueLibDict === "media"}
+                        active={continueLibDict === 'media'}
                         onClick={() =>
-                          this.setState({ continueLibDict: "media" })
+                          this.setState({ continueLibDict: 'media' })
                         }
                       >
                         <Icon name="media" size="x" />
                       </PaneTab>
                     </PaneTabs>
                   </Container>
-                  <ActionLibHolder flex={[1, 1, "auto"]}>
+                  <ActionLibHolder flex={[1, 1, 'auto']}>
                     <ActionLibList>
                       {USER_ACTIONS.continue[continueLibDict].map(
                         (action, i) => (
@@ -439,13 +437,13 @@ export default class UserPane extends React.Component {
             <Separator silent size="s" />
             <Container className="jr-step6">
               <UserAction dir="row" active={enableExplore}>
-                <Container flex={[0, 0, "140px"]} align="center" dir="column">
+                <Container flex={[0, 0, '140px']} align="center" dir="column">
                   <Checkbox
                     checked={enableExplore}
-                    onChange={(e) => this.toggleAction("enableExplore", e)}
+                    onChange={(e) => this.toggleAction('enableExplore', e)}
                   >
                     <PageSubtitle typo="p4">
-                        Add Second Interaction: 
+                      Add Second Interaction
                       <Tip
                         position="bottom"
                         title="Select to add a second interaction. Together with the first question or user interaction it gives the user choice. Multimedia requests works well - explore all tabs!"
@@ -454,85 +452,87 @@ export default class UserPane extends React.Component {
                           name="info2"
                           style={{
                             color: color.greyBlk,
-                            marginLeft: "5px",
-                            position: "relative",
-                            top: "2px"
+                            marginLeft: '5px',
+                            position: 'relative',
+                            top: '2px'
                           }}
                         />
                       </Tip>
                     </PageSubtitle>
                   </Checkbox>
                 </Container>
-                <Container flex={[2, 2, "auto"]} fill="grey" dir="column">
-                  <CustomActionHolder flex={[0, 0, "50px"]} dir="column">
-                    <FormItem fullWidth>      
+                <Container flex={[2, 2, 'auto']} fill="grey" dir="column">
+                  <CustomActionHolder flex={[0, 0, '50px']} dir="column">
+                    <FormItem fullWidth>
                       <TextInput
                         type="text"
                         placeholder="Type your own text label…"
                         maxLength={GLOBALS.fixedButtonCharLimit}
                         value={this.state.customExploreVal}
                         onChange={(e) =>
-                          this.customiseActionLabel("customExploreVal", e)
+                          this.customiseActionLabel('customExploreVal', e)
                         }
+                        style={{ paddingRight: '40px' }}
                       />
-                      <Legend 
-                      tip="Use this box to script the second user interaction or question. It must be in the users voice!"
+                      <Legend
+                        tip="Use this box to script the second user interaction or question. It must be in the users voice!"
+                        style={{ top: '16px' }}
                       >
                         i
                       </Legend>
-                    </FormItem>                   
+                    </FormItem>
                   </CustomActionHolder>
-                  <Container flex={[1, 0, "auto"]} style={{ width: "100%" }}>
+                  <Container flex={[1, 0, 'auto']} style={{ width: '100%' }}>
                     <PaneTabs>
                       <PaneTab
-                        active={exploreLibDict === "text"}
+                        active={exploreLibDict === 'text'}
                         onClick={() =>
-                          this.setState({ exploreLibDict: "text" })
+                          this.setState({ exploreLibDict: 'text' })
                         }
                       >
                         <Icon name="text" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={exploreLibDict === "link"}
+                        active={exploreLibDict === 'link'}
                         onClick={() =>
-                          this.setState({ exploreLibDict: "link" })
+                          this.setState({ exploreLibDict: 'link' })
                         }
                       >
                         <Icon name="link" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={exploreLibDict === "image"}
+                        active={exploreLibDict === 'image'}
                         onClick={() =>
-                          this.setState({ exploreLibDict: "image" })
+                          this.setState({ exploreLibDict: 'image' })
                         }
                       >
                         <Icon name="image" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={exploreLibDict === "embed"}
+                        active={exploreLibDict === 'embed'}
                         onClick={() =>
-                          this.setState({ exploreLibDict: "embed" })
+                          this.setState({ exploreLibDict: 'embed' })
                         }
                       >
                         <Icon name="embed" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={exploreLibDict === "map"}
-                        onClick={() => this.setState({ exploreLibDict: "map" })}
+                        active={exploreLibDict === 'map'}
+                        onClick={() => this.setState({ exploreLibDict: 'map' })}
                       >
                         <Icon name="map" size="x" />
                       </PaneTab>
                       <PaneTab
-                        active={exploreLibDict === "media"}
+                        active={exploreLibDict === 'media'}
                         onClick={() =>
-                          this.setState({ exploreLibDict: "media" })
+                          this.setState({ exploreLibDict: 'media' })
                         }
                       >
                         <Icon name="media" size="x" />
                       </PaneTab>
                     </PaneTabs>
                   </Container>
-                  <ActionLibHolder flex={[1, 1, "auto"]}>
+                  <ActionLibHolder flex={[1, 1, 'auto']}>
                     <ActionLibList>
                       {USER_ACTIONS.explore[exploreLibDict].map((action, i) => (
                         <ActionLibItem key={i}>
@@ -569,6 +569,6 @@ UserPane.propTypes = {
 };
 
 UserPane.defaultProps = {
-  exploreVal: "Omg why?",
-  continueVal: "Carry on"
+  exploreVal: 'Omg why?',
+  continueVal: 'Carry on'
 };
