@@ -1,6 +1,6 @@
-import React from 'react';
-import css from 'styled-components';
-import { object } from 'prop-types';
+import React from "react";
+import css from "styled-components";
+import { object } from "prop-types";
 
 import {
   Action,
@@ -9,7 +9,7 @@ import {
   PageTitle,
   Separator,
   breakpoint
-} from 'interviewjs-styleguide';
+} from "interviewjs-styleguide";
 
 const MobileRedirectEl = css(Container)`
   align-content: center;
@@ -26,7 +26,7 @@ const MobileRedirectEl = css(Container)`
 const MobileRedirect = (props) => (
   <MobileRedirectEl key="Placeholder">
     <Container>
-      <PageTitle typo="h2" style={{ textAlign: 'center' }}>
+      <PageTitle typo="h2" style={{ textAlign: "center" }}>
         The composer works exclusively on desktops. Make sure your browser
         window is expanded.
       </PageTitle>

@@ -22,7 +22,7 @@ import {
   radius,
   setHeight,
   setSpace,
-  time,
+  time
   // PageParagraph
 } from "interviewjs-styleguide";
 
@@ -168,21 +168,35 @@ export default class ListingView extends Component {
   }
 
   componentDidMount() {
-    if (! this.props.user.ignore && typeof this.props.user.id === "string") store.dispatch(syncFirebaseStories(this.props.user.id, this.props.user.email));
-    if (! this.props.user || ! this.props.user.id || this.props.user.ignore) this.props.router.push(`/`);
+    if (!this.props.user.ignore && typeof this.props.user.id === "string")
+      store.dispatch(
+        syncFirebaseStories(this.props.user.id, this.props.user.email)
+      );
+    if (!this.props.user || !this.props.user.id || this.props.user.ignore)
+      this.props.router.push(`/`);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.user.id !== nextProps.user.id && ! nextProps.user.ignore && typeof nextProps.user.id === "string") store.dispatch(syncFirebaseStories(nextProps.user.id ? nextProps.user.id : "", nextProps.user.email));
+    if (
+      this.props.user.id !== nextProps.user.id &&
+      !nextProps.user.ignore &&
+      typeof nextProps.user.id === "string"
+    )
+      store.dispatch(
+        syncFirebaseStories(
+          nextProps.user.id ? nextProps.user.id : "",
+          nextProps.user.email
+        )
+      );
   }
 
   handleLogout() {
     Auth.signOut()
-      .then(data => {
+      .then((data) => {
         console.log(data);
         this.props.router.push(`/`);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
   toggleNewStoryModal() {
     this.setState({ createStoryModal: !this.state.createStoryModal });
