@@ -7,7 +7,7 @@ import user from "./user";
 const rootReducer = combineReducers({
   stories,
   user,
-  routing: routerReducer
+  routing: routerReducer,
 });
 
 export default rootReducer;

@@ -1,4 +1,5 @@
 /* eslint react/forbid-prop-types: 0 */
+/* eslint no-param-reassign: 0 */
 import React, { Component } from "react";
 import ReactModal from "react-modal";
 import { arrayOf, bool, func, object } from "prop-types";
@@ -12,7 +13,7 @@ import {
   ModalHead,
   PageTitle,
   PageSubtitle,
-  Separator
+  Separator,
 } from "interviewjs-styleguide";
 
 import { Interviewees, DetailsForm, MetaForm } from "../";
@@ -31,7 +32,7 @@ export default class NewStoryModal extends Component {
     super(props);
     this.state = {
       step: 0,
-      storyCreated: false
+      storyCreated: false,
     };
     this.handleStep0 = this.handleStep0.bind(this);
     this.handleStep1 = this.handleStep1.bind(this);
@@ -40,9 +41,7 @@ export default class NewStoryModal extends Component {
   handleStep0(data) {
     data.uid = this.props.user.id;
     return (
-      this.state.storyCreated
-        ? this.props.updateStory(data, 0)
-        : this.props.createStory(data),
+      this.state.storyCreated ? this.props.updateStory(data, 0) : this.props.createStory(data),
       this.setState({ step: this.state.step + 1, storyCreated: true })
     );
   }
@@ -61,15 +60,12 @@ export default class NewStoryModal extends Component {
         return (
           <Container limit="s" align="center">
             <PageSubtitle typo="h3">
-              Start by giving your story a title and add your credentials. Click
-              “i” for extra tips and info!
+              Start by giving your story a title and add your credentials. Click “i” for extra tips and info!
             </PageSubtitle>
             <Separator size="m" silent />
             <MetaForm
               handleSubmit={this.handleStep0}
-              story={
-                this.state.storyCreated ? this.props.stories[0] : undefined
-              }
+              story={this.state.storyCreated ? this.props.stories[0] : undefined}
               user={this.props.user}
             />
           </Container>
@@ -78,24 +74,18 @@ export default class NewStoryModal extends Component {
         return (
           <Container limit="s" align="center">
             <PageSubtitle typo="h3">
-              Motivate your users by setting a quest: tell them what they will
-              learn by speaking to your interviewees. Then give them some
-              context to the story so that the interviews make sense. You’ll be
-              able to change your text as you continue to build your story.
+              Motivate your users by setting a quest: tell them what they will learn by speaking to your interviewees.
+              Then give them some context to the story so that the interviews make sense. You’ll be able to change your
+              text as you continue to build your story.
             </PageSubtitle>
             <Separator size="m" silent />
-            <DetailsForm
-              handleSubmit={this.handleStep1}
-              story={this.props.stories[0]}
-            />
+            <DetailsForm handleSubmit={this.handleStep1} story={this.props.stories[0]} />
           </Container>
         );
       } else if (step === 2) {
         return (
           <Container limit="s" align="center">
-            <PageSubtitle typo="h3">
-              You can add profiles for more interviewees now or later.
-            </PageSubtitle>
+            <PageSubtitle typo="h3">You can add profiles for more interviewees now or later.</PageSubtitle>
             <Separator size="m" silent />
             <Interviewees
               createInterviewee={this.props.createInterviewee}
@@ -125,22 +115,13 @@ export default class NewStoryModal extends Component {
             <PageTitle typo="h1">Create New Story</PageTitle>
             <Separator size="s" silent />
             <Breadcrumbs count={3}>
-              <Breadcrumb
-                onClick={step >= 0 ? () => this.setState({ step: 0 }) : null}
-                state={getStepState(step, 0)}
-              >
+              <Breadcrumb onClick={step >= 0 ? () => this.setState({ step: 0 }) : null} state={getStepState(step, 0)}>
                 Basic info
               </Breadcrumb>
-              <Breadcrumb
-                onClick={step >= 1 ? () => this.setState({ step: 1 }) : null}
-                state={getStepState(step, 1)}
-              >
+              <Breadcrumb onClick={step >= 1 ? () => this.setState({ step: 1 }) : null} state={getStepState(step, 1)}>
                 Intro
               </Breadcrumb>
-              <Breadcrumb
-                onClick={step >= 2 ? () => this.setState({ step: 2 }) : null}
-                state={getStepState(step, 2)}
-              >
+              <Breadcrumb onClick={step >= 2 ? () => this.setState({ step: 2 }) : null} state={getStepState(step, 2)}>
                 Interviewees
               </Breadcrumb>
             </Breadcrumbs>
@@ -163,9 +144,9 @@ NewStoryModal.propTypes = {
   stories: arrayOf(object),
   updateInterviewee: func.isRequired,
   updateStory: func.isRequired,
-  user: object.isRequired
+  user: object.isRequired,
 };
 
 NewStoryModal.defaultProps = {
-  stories: []
+  stories: [],
 };

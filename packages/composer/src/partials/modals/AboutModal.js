@@ -23,7 +23,7 @@ import {
   font,
   setSpace,
   setType,
-  setHeight
+  setHeight,
 } from "interviewjs-styleguide";
 
 // import { ErrorBoundary } from "../";
@@ -81,18 +81,13 @@ export default class AboutModal extends React.Component {
 
   countDown() {
     this.setState({
-      counter: this.state.counter - 1
+      counter: this.state.counter - 1,
     });
   }
 
   render() {
     return (
-      <ReactModal
-        ariaHideApp={false}
-        isOpen={this.props.isOpen}
-        onRequestClose={this.props.handleClose}
-        role="dialog"
-      >
+      <ReactModal ariaHideApp={false} isOpen={this.props.isOpen} onRequestClose={this.props.handleClose} role="dialog">
         <Modal {...this.props}>
           <ModalHead>
             {/* <ErrorBoundary>
@@ -108,35 +103,23 @@ export default class AboutModal extends React.Component {
             <Container align="center" limit="m">
               <DetailsCopy>
                 <p>
-                  Turn interview transcripts to shareable and embeddable
-                  interactive chats—InterviewJS is an open-source Google DNI &
-                  Al Jazeera-backed app for journalists and newsrooms that
-                  allows to compose and manage scripted chats for a more
-                  immersive storytelling experience.
+                  Turn interview transcripts to shareable and embeddable interactive chats—InterviewJS is an open-source
+                  Google DNI & Al Jazeera-backed app for journalists and newsrooms that allows to compose and manage
+                  scripted chats for a more immersive storytelling experience.
                 </p>
                 <PageSubtitle typo="h2">Connect with InterviewJS</PageSubtitle>
                 <Separator silent size="s" />
                 <p>
-                  InterviewJS is an open-source software happily accepting
-                  stars, forks and PRs on Github and followers on Twitter:
+                  InterviewJS is an open-source software happily accepting stars, forks and PRs on Github and followers
+                  on Twitter:
                 </p>
               </DetailsCopy>
               <Separator silent size="m" />
               <Actionbar>
-                <Action
-                  href="https://github.com/AJInteractive/InterviewJS"
-                  target="_blank"
-                  secondary
-                  fixed
-                >
+                <Action href="https://github.com/AJInteractive/InterviewJS" target="_blank" secondary fixed>
                   <Icon name="github" /> Github
                 </Action>
-                <Action
-                  href="https://twitter.com/interview_js"
-                  target="_blank"
-                  secondary
-                  fixed
-                >
+                <Action href="https://twitter.com/interview_js" target="_blank" secondary fixed>
                   <Icon name="twitter" /> Twitter
                 </Action>
               </Actionbar>
@@ -157,7 +140,7 @@ export default class AboutModal extends React.Component {
 
 AboutModal.propTypes = {
   handleClose: func.isRequired,
-  isOpen: bool.isRequired
+  isOpen: bool.isRequired,
 };
 
 AboutModal.defaultProps = {};

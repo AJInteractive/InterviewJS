@@ -3,13 +3,7 @@ import React from "react";
 import { array, func, number, shape, string } from "prop-types";
 import shortUuid from "short-uuid";
 
-import {
-  Action,
-  Actionbar,
-  Container,
-  Separator,
-  Text
-} from "interviewjs-styleguide";
+import { Action, Actionbar, Container, Separator, Text } from "interviewjs-styleguide";
 
 import { QuestionForm } from "../";
 
@@ -59,13 +53,13 @@ export default class PollForm extends React.Component {
             <Separator size="s" dir="v" silent />
             <Container flex={[1, 1, "100%"]}>
               <QuestionForm
-                handleSubmit={(data) => this.saveQuestion(data, i)}
+                handleSubmit={data => this.saveQuestion(data, i)}
                 question={item}
                 removeQuestion={() => this.removeQuestion(i)}
               />
             </Container>
           </Container>,
-          <Separator size="m" silent key="separator" />
+          <Separator size="m" silent key="separator" />,
         ])}
         <Container dir="row">
           <Container flex={[1, 0, "auto"]}>
@@ -73,10 +67,7 @@ export default class PollForm extends React.Component {
           </Container>
           <Separator size="s" dir="v" silent />
           <Container flex={[1, 1, "100%"]}>
-            <QuestionForm
-              isNew
-              handleSubmit={(data) => this.addQuestion(data)}
-            />
+            <QuestionForm isNew handleSubmit={data => this.addQuestion(data)} />
           </Container>
         </Container>
         <Separator size="m" silent />
@@ -100,12 +91,12 @@ PollForm.propTypes = {
   cta: string,
   handleSubmit: func.isRequired,
   story: shape({
-    poll: array.isRequired
+    poll: array.isRequired,
   }).isRequired,
   storyIndex: number.isRequired,
-  updateStory: func.isRequired
+  updateStory: func.isRequired,
 };
 
 PollForm.defaultProps = {
-  cta: "Save"
+  cta: "Save",
 };

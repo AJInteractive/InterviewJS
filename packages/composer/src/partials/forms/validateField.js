@@ -1,4 +1,4 @@
-const validateField = (target) => {
+const validateField = target => {
   const { maxLength, minLength, required, value } = target;
   if (minLength !== -1 && maxLength !== -1) {
     // console.log("minLength !== -1 && maxLength !== -1");

@@ -47,7 +47,7 @@ export default class AuthModal extends React.Component {
       newPassword: "",
       activeTab: "signIn",
       forgotPassword: false,
-      message: null
+      message: null,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -55,9 +55,7 @@ export default class AuthModal extends React.Component {
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleConfirmSignUp = this.handleConfirmSignUp.bind(this);
     this.handleForgotPassword = this.handleForgotPassword.bind(this);
-    this.handleConfirmForgotPassword = this.handleConfirmForgotPassword.bind(
-      this
-    );
+    this.handleConfirmForgotPassword = this.handleConfirmForgotPassword.bind(this);
     this.handleTabActivation = this.handleTabActivation.bind(this);
     this.toggleForgotPassword = this.toggleForgotPassword.bind(this);
   }
@@ -82,7 +80,7 @@ export default class AuthModal extends React.Component {
     const { value, name } = target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -104,14 +102,14 @@ export default class AuthModal extends React.Component {
     const { username, password } = this.state;
 
     Auth.signIn(username, password)
-      .then(async (user) => {
+      .then(async user => {
         const info = await Auth.currentUserInfo();
         if (user && info) {
           this.raiseMessage("OK", info);
           this.props.handleAuthentication(info);
         }
       })
-      .catch((error) => this.raiseError(error));
+      .catch(error => this.raiseError(error));
   }
 
   handleSignUp() {
@@ -120,38 +118,34 @@ export default class AuthModal extends React.Component {
     Auth.signUp({
       username,
       password,
-      attributes: { email }
+      attributes: { email },
     })
-      .then((data) =>
-        this.raiseMessage("Check your email for access code", data)
-      )
-      .catch((error) => this.raiseError(error));
+      .then(data => this.raiseMessage("Check your email for access code", data))
+      .catch(error => this.raiseError(error));
   }
 
   handleConfirmSignUp() {
     const { username, code } = this.state;
 
     Auth.confirmSignUp(username, code)
-      .then((data) => this.raiseMessage("Now please sign in", data))
-      .catch((error) => this.raiseError(error));
+      .then(data => this.raiseMessage("Now please sign in", data))
+      .catch(error => this.raiseError(error));
   }
 
   handleForgotPassword() {
     const { username } = this.state;
 
     Auth.forgotPassword(username)
-      .then((data) =>
-        this.raiseMessage("Check your email for access code", data)
-      )
-      .catch((error) => this.raiseError(error));
+      .then(data => this.raiseMessage("Check your email for access code", data))
+      .catch(error => this.raiseError(error));
   }
 
   handleConfirmForgotPassword() {
     const { username, code, newPassword } = this.state;
 
     Auth.forgotPasswordSubmit(username, code, newPassword)
-      .then((data) => this.raiseMessage("Now please sign in", data))
-      .catch((error) => this.raiseError(error));
+      .then(data => this.raiseMessage("Now please sign in", data))
+      .catch(error => this.raiseError(error));
   }
 
   render() {
@@ -169,28 +163,13 @@ export default class AuthModal extends React.Component {
               <img src={LogoWSymbolNegative} alt="InterviewJS" />
             </Brandmark>
             <BubbleBlock>
-              <Bubble
-                animated
-                persona="interviewee"
-                theme={{ backg: color.flareLLt, color: color.white }}
-              >
+              <Bubble animated persona="interviewee" theme={{ backg: color.flareLLt, color: color.white }}>
                 Welcome!
               </Bubble>
-              <Bubble
-                animated
-                delay={1000}
-                persona="interviewee"
-                theme={{ backg: color.flareLLt, color: color.white }}
-              >
-                InterviewJS will help you tell interactive stories by converting
-                your interviews into a chat experience.
+              <Bubble animated delay={1000} persona="interviewee" theme={{ backg: color.flareLLt, color: color.white }}>
+                InterviewJS will help you tell interactive stories by converting your interviews into a chat experience.
               </Bubble>
-              <Bubble
-                animated
-                delay={2000}
-                persona="interviewee"
-                theme={{ backg: color.flareLLt, color: color.white }}
-              >
+              <Bubble animated delay={2000} persona="interviewee" theme={{ backg: color.flareLLt, color: color.white }}>
                 To continue, sign in with your Google account.
               </Bubble>
             </BubbleBlock>
@@ -216,12 +195,9 @@ export default class AuthModal extends React.Component {
                 </PaneTabs>
 
                 <Separator dir="h" size="s" silent />
-                <Text typo="h3">
-                  {this.state.message ? this.state.message : "\xa0"}
-                </Text>
+                <Text typo="h3">{this.state.message ? this.state.message : "\xa0"}</Text>
 
-                {!this.state.forgotPassword &&
-                this.state.activeTab === "signIn" ? (
+                {!this.state.forgotPassword && this.state.activeTab === "signIn" ? (
                   <div style={{ padding: "1em" }}>
                     <FormItem>
                       <Label>Username</Label>
@@ -236,12 +212,7 @@ export default class AuthModal extends React.Component {
                     <Separator dir="h" size="s" silent />
                     <FormItem>
                       <Label>Password</Label>
-                      <TextInput
-                        input
-                        type="password"
-                        name="password"
-                        onChange={this.handleInputChange}
-                      />
+                      <TextInput input type="password" name="password" onChange={this.handleInputChange} />
                     </FormItem>
                     <Separator dir="h" silent />
                     <Actionbar>
@@ -330,8 +301,7 @@ export default class AuthModal extends React.Component {
                   </div>
                 ) : null}
 
-                {this.state.forgotPassword &&
-                this.state.activeTab === "signIn" ? (
+                {this.state.forgotPassword && this.state.activeTab === "signIn" ? (
                   <div style={{ padding: "0em 1em 1em 1em" }}>
                     <Text typo="h5">
                       Forgot Password<br /> Step 1
@@ -390,11 +360,7 @@ export default class AuthModal extends React.Component {
                     </FormItem>
                     <Separator dir="h" silent />
                     <Actionbar>
-                      <Action
-                        fixed
-                        primary
-                        onClick={this.handleConfirmForgotPassword}
-                      >
+                      <Action fixed primary onClick={this.handleConfirmForgotPassword}>
                         Confirm forgot password
                       </Action>
                     </Actionbar>
@@ -414,12 +380,12 @@ export default class AuthModal extends React.Component {
 AuthModal.propTypes = {
   handleAuthentication: func.isRequired,
   handleClose: func,
-  isOpen: bool
+  isOpen: bool,
 };
 
 AuthModal.defaultProps = {
   handleClose: null,
-  isOpen: true
+  isOpen: true,
 };
 
 AuthModal.defaultProps = {};

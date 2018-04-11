@@ -1,7 +1,7 @@
 /* eslint react/no-danger: 0 */
-import { arrayOf, func, object, number } from 'prop-types';
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import { arrayOf, func, object, number } from "prop-types";
+import React from "react";
+import styled, { keyframes } from "styled-components";
 
 import {
   Action,
@@ -16,9 +16,9 @@ import {
   setSpace,
   skin,
   time
-} from 'interviewjs-styleguide';
+} from "interviewjs-styleguide";
 
-import { filterIframe } from '../../../util/IframeSanitizer';
+import { filterIframe } from "../../../util/IframeSanitizer";
 
 const animateEditableBubble = keyframes`
   0% {
@@ -101,7 +101,7 @@ const BubbleEdit = styled.div`
   visibility: hidden;
   z-index: 50;
   & > * {
-    ${setSpace('mhx')};
+    ${setSpace("mhx")};
   }
 `;
 const UserButtons = styled(Container)`
@@ -110,12 +110,12 @@ const UserButtons = styled(Container)`
   justify-content: flex-end;
   width: 100%;
   & > * {
-    ${setSpace('mlx')};
+    ${setSpace("mlx")};
   }
 `;
 const StorylineEl = styled.div`
-  ${setSpace('phl')};
-  ${setSpace('ptm')};
+  ${setSpace("phl")};
+  ${setSpace("ptm")};
   bottom: 0;
   height: 100%;
   left: 0;
@@ -124,13 +124,13 @@ const StorylineEl = styled.div`
   right: 0;
   top: 0;
   & > * {
-    ${setSpace('mvm')};
+    ${setSpace("mvm")};
   }
   & > *:first-child {
-    ${setSpace('mtm')};
+    ${setSpace("mtm")};
   }
   & > *:last-child {
-    ${setSpace('mbl')};
+    ${setSpace("mbl")};
   }
   & .BubblePlaceholder {
     background: ${color.greyWt};
@@ -149,8 +149,8 @@ const StorylineEl = styled.div`
   }
 `;
 
-const placeholder = document.createElement('div');
-placeholder.className = 'BubblePlaceholder';
+const placeholder = document.createElement("div");
+placeholder.className = "BubblePlaceholder";
 
 export default class Storyline extends React.Component {
   constructor(props) {
@@ -165,7 +165,7 @@ export default class Storyline extends React.Component {
     this.scrollToBottom = this.scrollToBottom.bind(this);
   }
   componentDidMount() {
-    setTimeout(() => this.scrollToBottom('instant'), 300);
+    setTimeout(() => this.scrollToBottom("instant"), 300);
   }
   componentDidUpdate(prevProps) {
     return prevProps.storyline.length < this.props.storyline.length
@@ -175,8 +175,8 @@ export default class Storyline extends React.Component {
   dragStart(e) {
     this.setState({ dropdown: null });
     this.dragged = e.currentTarget;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.dragged);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", this.dragged);
   }
   dragEnd() {
     const { currentInterviewee, storyIndex } = this.props;
@@ -188,7 +188,7 @@ export default class Storyline extends React.Component {
       Number.isInteger(to) &&
       this.over.dataset.droppable !== undefined
     ) {
-      this.dragged.style.display = 'flex';
+      this.dragged.style.display = "flex";
       this.dragged.parentNode.removeChild(placeholder);
       const payload = { from, to };
       this.props.moveStorylineItem(storyIndex, currentInterviewee, payload);
@@ -198,8 +198,8 @@ export default class Storyline extends React.Component {
   dragOver(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.dragged.style.display = 'none';
-    if (e.target.className === 'BubblePlaceholder') return;
+    this.dragged.style.display = "none";
+    if (e.target.className === "BubblePlaceholder") return;
     function findDroppableParent(el) {
       while ((el = el.parentElement) && !el.dataset.droppable);
       return el;
@@ -226,9 +226,9 @@ export default class Storyline extends React.Component {
   scrollToBottom(behaviour) {
     return this.anchor
       ? this.anchor.scrollIntoView({
-          behavior: behaviour || 'smooth',
-          block: 'end',
-          inline: 'end'
+          behavior: behaviour || "smooth",
+          block: "end",
+          inline: "end"
         })
       : null;
   }
@@ -243,21 +243,21 @@ export default class Storyline extends React.Component {
         <Bubble
           persona={role}
           plain
-          theme={{ backg: skin.speakerBackg, font: 'PT sans' }}
+          theme={{ backg: skin.speakerBackg, font: "PT sans" }}
         >
           <UserButtons dir="row">
             {content[0].enabled ? (
               <Action
                 primary={!content[1].enabled}
                 secondary={!!content[1].enabled}
-                theme={{ font: 'PT sans' }}
+                theme={{ font: "PT sans" }}
                 fixed
               >
                 {content[0].value}
               </Action>
             ) : null}
             {content[1].enabled ? (
-              <Action primary fixed theme={{ font: 'PT sans' }}>
+              <Action primary fixed theme={{ font: "PT sans" }}>
                 {content[1].value}
               </Action>
             ) : null}
@@ -267,45 +267,45 @@ export default class Storyline extends React.Component {
     };
     const renderIntervieweeBubble = (data) => {
       const { content, type, role } = data;
-      if (type === 'text') {
+      if (type === "text") {
         return (
           <Bubble
             displayType="plain"
             persona={role}
-            theme={{ backg: interviewee.color, font: 'PT sans' }}
+            theme={{ backg: interviewee.color, font: "PT sans" }}
           >
             {content.value}
           </Bubble>
         );
-      } else if (type === 'link') {
+      } else if (type === "link") {
         return (
           <Bubble
             displayType="plain"
             persona={role}
-            theme={{ backg: interviewee.color, font: 'PT sans' }}
+            theme={{ backg: interviewee.color, font: "PT sans" }}
           >
             <a href={content.value} target="_blank">
               {content.title ? content.title : content.value}
             </a>
           </Bubble>
         );
-      } else if (type === 'image') {
+      } else if (type === "image") {
         return (
           <Bubble
             displayType="rich"
             persona={role}
-            theme={{ backg: interviewee.color, font: 'PT sans' }}
+            theme={{ backg: interviewee.color, font: "PT sans" }}
           >
             <img src={content.value} alt="" />
             {content.title ? <p>{content.title}</p> : null}
           </Bubble>
         );
-      } else if (type === 'embed') {
+      } else if (type === "embed") {
         return (
           <Bubble
-            displayType="embed"
             persona={role}
-            theme={{ backg: interviewee.color, font: 'PT sans' }}
+            displayType="embed"
+            theme={{ backg: interviewee.color, font: "PT sans" }}
           >
             <div
               dangerouslySetInnerHTML={{
@@ -314,12 +314,12 @@ export default class Storyline extends React.Component {
             />
           </Bubble>
         );
-      } else if (type === 'map') {
+      } else if (type === "map") {
         return (
           <Bubble
             displayType="embed"
             persona={role}
-            theme={{ backg: interviewee.color, font: 'PT sans' }}
+            theme={{ backg: interviewee.color, font: "PT sans" }}
           >
             <div
               dangerouslySetInnerHTML={{
@@ -354,7 +354,7 @@ export default class Storyline extends React.Component {
               }
             >
               <BubbleBlock>
-                {role === 'user'
+                {role === "user"
                   ? renderUserBubble(item)
                   : renderIntervieweeBubble(item)}
               </BubbleBlock>
@@ -367,7 +367,7 @@ export default class Storyline extends React.Component {
                         html={
                           <DropdownContent>
                             <ul>
-                              {role === 'user' ? (
+                              {role === "user" ? (
                                 <li>
                                   <Action onClick={() => this.toggleEdit(i)}>
                                     Edit bubble

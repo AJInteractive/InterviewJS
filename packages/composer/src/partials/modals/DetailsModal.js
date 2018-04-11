@@ -3,15 +3,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import { bool, func, number, shape, string, object } from "prop-types";
 
-import {
-  Modal,
-  ModalBody,
-  ModalHead,
-  PageTitle,
-  PaneTab,
-  PaneTabs,
-  Separator
-} from "interviewjs-styleguide";
+import { Modal, ModalBody, ModalHead, PageTitle, PaneTab, PaneTabs, Separator } from "interviewjs-styleguide";
 
 import { Interviewees, DetailsForm, MetaForm } from "../";
 
@@ -67,36 +59,19 @@ export default class DetailsModal extends React.Component {
       }
     };
     return (
-      <ReactModal
-        ariaHideApp={false}
-        isOpen={this.props.isOpen}
-        onRequestClose={this.props.handleClose}
-        role="dialog"
-      >
+      <ReactModal ariaHideApp={false} isOpen={this.props.isOpen} onRequestClose={this.props.handleClose} role="dialog">
         <Modal {...this.props}>
           <ModalHead fill="grey">
             <PageTitle typo="h2">{this.props.story.title}</PageTitle>
             <Separator size="s" silent />
             <PaneTabs>
-              <PaneTab
-                active={tab === "meta"}
-                onClick={() => this.switchTab("meta")}
-                opinionated
-              >
+              <PaneTab active={tab === "meta"} onClick={() => this.switchTab("meta")} opinionated>
                 Story
               </PaneTab>
-              <PaneTab
-                active={tab === "details"}
-                onClick={() => this.switchTab("details")}
-                opinionated
-              >
+              <PaneTab active={tab === "details"} onClick={() => this.switchTab("details")} opinionated>
                 Story Info
               </PaneTab>
-              <PaneTab
-                active={tab === "interviewees"}
-                onClick={() => this.switchTab("interviewees")}
-                opinionated
-              >
+              <PaneTab active={tab === "interviewees"} onClick={() => this.switchTab("interviewees")} opinionated>
                 Interviewees
               </PaneTab>
               {/* <PaneTab
@@ -122,7 +97,7 @@ DetailsModal.propTypes = {
   isOpen: bool,
   story: shape({
     id: string.isRequired,
-    title: string.isRequired
+    title: string.isRequired,
   }).isRequired,
   storyIndex: number.isRequired,
   tab: string,
@@ -133,5 +108,5 @@ DetailsModal.propTypes = {
 
 DetailsModal.defaultProps = {
   isOpen: false,
-  tab: "meta"
+  tab: "meta",
 };

@@ -58,7 +58,7 @@ export default class TextPane extends Component {
     super(props);
     this.state = {
       draft: this.props.draft,
-      srcText: this.props.srcText
+      srcText: this.props.srcText,
     };
 
     this.onBlur = this.onBlur.bind(this);
@@ -102,22 +102,15 @@ export default class TextPane extends Component {
     return (
       <PaneFrame
         {...this.props}
-        draft={
-          <Draft onChange={this.onDraftEdit} value={this.state.draft.value} />
-        }
+        draft={<Draft onChange={this.onDraftEdit} value={this.state.draft.value} />}
         hasDraft={this.props.draft.value !== ""}
         side="left"
       >
-        <SrcText
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          onSelect={this.onSelect}
-          value={this.state.srcText}
-        />
+        <SrcText onBlur={this.onBlur} onChange={this.onChange} onSelect={this.onSelect} value={this.state.srcText} />
         {this.state.srcText.length === 0 ? (
           <SrcPlaceholder>
-            Here’s where you can type your interview notes or copy and paste
-            existing transcripts to convert into chat bubbles
+            Here’s where you can type your interview notes or copy and paste existing transcripts to convert into chat
+            bubbles
           </SrcPlaceholder>
         ) : null}
       </PaneFrame>
@@ -127,16 +120,16 @@ export default class TextPane extends Component {
 
 TextPane.propTypes = {
   draft: shape({
-    value: string
+    value: string,
   }),
   srcText: string,
   updateDraft: func.isRequired,
-  updateSrcText: func.isRequired
+  updateSrcText: func.isRequired,
 };
 
 TextPane.defaultProps = {
   draft: {
-    value: ""
+    value: "",
   },
-  srcText: ""
+  srcText: "",
 };

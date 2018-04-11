@@ -15,17 +15,14 @@ const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 const gitRevisionPlugin = new GitRevisionPlugin({
-  versionCommand: 'describe --always --tags --dirty'
+  versionCommand: "describe --always --tags --dirty",
 });
 
 module.exports = function override(config, env) {
   // white-list some npm modules to the babel-loader pipeline
   // see: https://webpack.js.org/configuration/module/#rule-include
 
-  config = rewireBabelLoader.include(
-    config,
-    resolveApp("../styleguide")
-  );
+  config = rewireBabelLoader.include(config, resolveApp("../styleguide"));
 
   // black-list some modules from the babel-loader pipeline
   // see: https://webpack.js.org/configuration/module/#rule-exclude
@@ -34,7 +31,7 @@ module.exports = function override(config, env) {
 
   // Use `webpack.DefinePlugin` to add the version number from package.json
   config = rewireDefinePlugin(config, env, {
-    "process.env.VERSION": JSON.stringify(gitRevisionPlugin.version())
+    "process.env.VERSION": JSON.stringify(gitRevisionPlugin.version()),
   });
 
   return config;

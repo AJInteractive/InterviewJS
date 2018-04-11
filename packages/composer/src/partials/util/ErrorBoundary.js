@@ -5,7 +5,6 @@ import React from "react";
 import { arrayOf, oneOfType, node } from "prop-types";
 import Raven from "raven-js";
 
-
 // https://reactjs.org/docs/error-boundaries.html
 // https://blog.sentry.io/2017/09/28/react-16-error-boundaries
 class ErrorBoundary extends React.Component {
@@ -34,10 +33,9 @@ class ErrorBoundary extends React.Component {
 }
 
 ErrorBoundary.propTypes = {
-  children: oneOfType([arrayOf(node), node]).isRequired
+  children: oneOfType([arrayOf(node), node]).isRequired,
 };
 
 ErrorBoundary.defaultProps = {};
-
 
 export default ErrorBoundary;

@@ -8,28 +8,19 @@ import shortUuid from "short-uuid";
 import uuidv5 from "uuid/v5";
 import sanitizeFilename from "sanitize-filename";
 
-import {
-  BubbleHTMLWrapper,
-  Form,
-  FormItem,
-  Label,
-  Legend,
-  Separator,
-  TextInput
-} from "interviewjs-styleguide";
+import { BubbleHTMLWrapper, Form, FormItem, Label, Legend, Separator, TextInput } from "interviewjs-styleguide";
 import PaneFrame from "../PaneFrame";
 
-
 const fileToKey = (data, storyId) => {
-    const { name, type } = data;
-    // console.log(name, type);
+  const { name, type } = data;
+  // console.log(name, type);
 
-    let namespace = storyId;
-    if (namespace.indexOf("_")) namespace = namespace.split("_").pop();
-    if (namespace.length < 36) namespace = shortUuid().toUUID(namespace);
+  let namespace = storyId;
+  if (namespace.indexOf("_")) namespace = namespace.split("_").pop();
+  if (namespace.length < 36) namespace = shortUuid().toUUID(namespace);
 
-    const uuid = uuidv5(`${type},${name}`, namespace);
-    return `${shortUuid().fromUUID(uuid)}-${name}`;
+  const uuid = uuidv5(`${type},${name}`, namespace);
+  return `${shortUuid().fromUUID(uuid)}-${name}`;
 };
 
 export default class ImagePane extends Component {
@@ -62,19 +53,25 @@ export default class ImagePane extends Component {
   // }
 
   handleBlob(blob, type, name) {
-    const key = fileToKey({type, name: sanitizeFilename(name.replace(/ /g, "_"))}, this.props.story.id);
+    const key = fileToKey({ type, name: sanitizeFilename(name.replace(/ /g, "_")) }, this.props.story.id);
     Storage.put(`files/${this.props.user.id}/${this.props.story.id}/${key}`, blob, {
       bucket: "data.interviewjs.io",
       level: "public",
-      contentType: type
+      contentType: type,
     })
-    .then (async result => {
-      console.log(result);
-      this.setState({ draft: { ...this.state.draft, value: `https://story.interviewjs.io/files/${this.props.user.id}/${this.props.story.id}/${key}` } }, () =>
-        this.props.updateDraft(this.state.draft)
-      );
-    })
-    .catch(err => console.log(err));
+      .then(async result => {
+        console.log(result);
+        this.setState(
+          {
+            draft: {
+              ...this.state.draft,
+              value: `https://story.interviewjs.io/files/${this.props.user.id}/${this.props.story.id}/${key}`,
+            },
+          },
+          () => this.props.updateDraft(this.state.draft)
+        );
+      })
+      .catch(err => console.log(err));
   }
 
   handleFile(f) {
@@ -84,23 +81,25 @@ export default class ImagePane extends Component {
       this.handleBlob(f[0], type, name);
     } else {
       // this.img.src = preview;
-      const offScreenImage = document.createElement('img');
-      offScreenImage.addEventListener('load', () => {
+      const offScreenImage = document.createElement("img");
+      offScreenImage.addEventListener("load", () => {
         const targetWidth = offScreenImage.width > 600 ? 600 : offScreenImage.width;
         const targetHeight = parseInt(targetWidth * offScreenImage.height / offScreenImage.width, 10);
         console.log(`${offScreenImage.width} x ${offScreenImage.height} => ${targetWidth} x ${targetHeight}`);
 
-        const offScreenCanvas = document.createElement('canvas');
-        offScreenCanvas.width  = targetWidth;
+        const offScreenCanvas = document.createElement("canvas");
+        offScreenCanvas.width = targetWidth;
         offScreenCanvas.height = targetHeight;
 
-        const pica = Pica({ features: ['js', 'wasm', 'ww'] });
-        pica.resize(offScreenImage, offScreenCanvas, {
-          unsharpAmount: 80,
-          unsharpRadius: 0.6,
-          unsharpThreshold: 2,
-          transferable: true
-        }).then(result => pica.toBlob(result, 'image/jpeg', 0.90))
+        const pica = Pica({ features: ["js", "wasm", "ww"] });
+        pica
+          .resize(offScreenImage, offScreenCanvas, {
+            unsharpAmount: 80,
+            unsharpRadius: 0.6,
+            unsharpThreshold: 2,
+            transferable: true,
+          })
+          .then(result => pica.toBlob(result, "image/jpeg", 0.9))
           .then(blob => this.handleBlob(blob, type, name)); // .catch(error => console.log(error)); // Raven should catch this
       });
       offScreenImage.src = preview;
@@ -109,9 +108,7 @@ export default class ImagePane extends Component {
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ draft: { ...this.state.draft, [name]: value } }, () =>
-      this.props.updateDraft(this.state.draft)
-    );
+    this.setState({ draft: { ...this.state.draft, [name]: value } }, () => this.props.updateDraft(this.state.draft));
   }
 
   render() {
@@ -136,10 +133,10 @@ export default class ImagePane extends Component {
 
             <Dropzone
               accept="image/jpeg, image/jpg, image/svg, image/gif, image/png"
-              ref={(node) => {
+              ref={node => {
                 this.dropzoneRef = node;
               }}
-              onDrop={(accepted) => {
+              onDrop={accepted => {
                 this.handleFile(accepted);
               }}
               style={{ display: "none" }}
@@ -153,23 +150,13 @@ export default class ImagePane extends Component {
               }}
             />
 
-            <Legend tip="Select an image format with the extension .jpeg, .png, .svg or .gif.">
-              i
-            </Legend>
+            <Legend tip="Select an image format with the extension .jpeg, .png, .svg or .gif.">i</Legend>
           </FormItem>
           <Separator size="m" silent />
           <FormItem>
             <Label>Image caption</Label>
-            <TextInput
-              text
-              name="title"
-              onChange={(e) => this.handleChange(e)}
-              required
-              type="text"
-            />
-            <Legend tip="Type text for image caption here">
-              i
-            </Legend>
+            <TextInput text name="title" onChange={e => this.handleChange(e)} required type="text" />
+            <Legend tip="Type text for image caption here">i</Legend>
           </FormItem>
         </Form>
       </PaneFrame>
@@ -177,20 +164,19 @@ export default class ImagePane extends Component {
   }
 }
 
-
 ImagePane.propTypes = {
   draft: shape({
     value: string,
-    title: string
+    title: string,
   }),
   updateDraft: func.isRequired,
   story: object.isRequired,
-  user: object.isRequired
+  user: object.isRequired,
 };
 
 ImagePane.defaultProps = {
   draft: {
     value: "",
-    title: ""
-  }
+    title: "",
+  },
 };

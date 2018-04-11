@@ -10,7 +10,7 @@ import {
   Label,
   Legend,
   Separator,
-  TextInput
+  TextInput,
 } from "interviewjs-styleguide";
 
 import validateField from "./validateField";
@@ -21,8 +21,8 @@ export default class DetailsForm extends React.Component {
     this.state = {
       formData: {
         intro: this.props.story.intro,
-        context: this.props.story.context
-      }
+        context: this.props.story.context,
+      },
     };
     this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -41,23 +41,21 @@ export default class DetailsForm extends React.Component {
   }
   handleChange(e) {
     this.setState({
-      formData: { ...this.state.formData, [e.target.name]: e.target.value }
+      formData: { ...this.state.formData, [e.target.name]: e.target.value },
     });
   }
   render() {
     return (
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
+      <Form onSubmit={e => this.handleSubmit(e)}>
         <FormItem>
           <Label>Intro</Label>
-          <CharacterCount>
-            {160 - this.state.formData.intro.length}
-          </CharacterCount>
+          <CharacterCount>{160 - this.state.formData.intro.length}</CharacterCount>
           <TextInput
             area
             maxLength="160"
             name="intro"
-            onBlur={(e) => this.handleBlur(e)}
-            onChange={(e) => this.handleChange(e)}
+            onBlur={e => this.handleBlur(e)}
+            onChange={e => this.handleChange(e)}
             placeholder="Start with something like “Investigate...”, “Find out ... “, or “Learn ...”."
             required={this.props.required}
             value={this.state.formData.intro}
@@ -73,15 +71,13 @@ export default class DetailsForm extends React.Component {
         <Separator size="m" silent />
         <FormItem>
           <Label>Context</Label>
-          <CharacterCount>
-            {900 - this.state.formData.context.length}
-          </CharacterCount>
+          <CharacterCount>{900 - this.state.formData.context.length}</CharacterCount>
           <TextInput
             area
             maxLength="900"
             name="context"
-            onBlur={(e) => this.handleBlur(e)}
-            onChange={(e) => this.handleChange(e)}
+            onBlur={e => this.handleBlur(e)}
+            onChange={e => this.handleChange(e)}
             placeholder="Give your user some background to the story, why does it matter?"
             required={this.props.required}
             value={this.state.formData.context}
@@ -112,8 +108,8 @@ DetailsForm.propTypes = {
   required: bool,
   story: shape({
     context: string,
-    intro: string
-  })
+    intro: string,
+  }),
 };
 
 DetailsForm.defaultProps = {
@@ -122,6 +118,6 @@ DetailsForm.defaultProps = {
   handleSave: null,
   story: {
     context: "",
-    intro: ""
-  }
+    intro: "",
+  },
 };

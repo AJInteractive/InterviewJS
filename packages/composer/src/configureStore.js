@@ -8,9 +8,6 @@ import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import firebase from "firebase";
-import Rebase from "re-base";
-
 import Raven from "raven-js";
 import createRavenMiddleware from "raven-for-redux";
 import clone from "clone";
@@ -33,38 +30,22 @@ if (document.location.hostname !== "localhost") {
       dom: false,
     },
     maxBreadcrumbs: 32,
-    sanitizeKeys: ['logo', 'cover', 'avatar'],
+    sanitizeKeys: ["logo", "cover", "avatar"],
   }).install();
 }
-
-// FIREBASE
-export const firebaseApp = firebase.initializeApp({
-  apiKey: "AIzaSyAzBGoszKOt1C_T4GV84hUBpjkK08H57KY",
-  authDomain: "interviewjs-6c14d.firebaseapp.com",
-  databaseURL: "https://interviewjs-6c14d.firebaseio.com",
-  projectId: "interviewjs-6c14d",
-  storageBucket: "interviewjs-6c14d.appspot.com",
-  messagingSenderId: "126484254752"
-});
-
-
-// RE-BASE
-export const base = Rebase.createClass(firebaseApp.database());
-
 
 // PERSIST
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["routing"]
+  blacklist: ["routing"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-
 const defaultState = {
   stories: document.location.hostname === "localhost" ? stories : [],
-  user: {}
+  user: {},
 };
 
 const enhancers = compose(
@@ -73,34 +54,34 @@ const enhancers = compose(
       stateTransformer: state => ({ stories: state.stories.map(({ id }) => ({ id })) }),
       actionTransformer: action => {
         const cloned = clone(action);
-        if (cloned.payload && cloned.payload.content && cloned.payload.content.value && cloned.payload.content.value.length > 64) cloned.payload.content.value = cloned.payload.content.value.substring(64);
-        if (cloned.payload && cloned.payload.avatar && cloned.payload.avatar.length > 64) cloned.payload.avatar = cloned.payload.avatar.substring(64);
-        if (cloned.payload && cloned.payload.logo && cloned.payload.logo.length > 64) cloned.payload.logo = cloned.payload.logo.substring(64);
-        if (cloned.payload && cloned.payload.cover && cloned.payload.cover.length > 64) cloned.payload.cover = cloned.payload.cover.substring(64);
+        if (
+          cloned.payload &&
+          cloned.payload.content &&
+          cloned.payload.content.value &&
+          cloned.payload.content.value.length > 64
+        )
+          cloned.payload.content.value = cloned.payload.content.value.substring(64);
+        if (cloned.payload && cloned.payload.avatar && cloned.payload.avatar.length > 64)
+          cloned.payload.avatar = cloned.payload.avatar.substring(64);
+        if (cloned.payload && cloned.payload.logo && cloned.payload.logo.length > 64)
+          cloned.payload.logo = cloned.payload.logo.substring(64);
+        if (cloned.payload && cloned.payload.cover && cloned.payload.cover.length > 64)
+          cloned.payload.cover = cloned.payload.cover.substring(64);
         return cloned;
       },
     }),
     thunkMiddleware
   ),
-  window.devToolsExtension ? window.devToolsExtension() : (f) => f,
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 );
-
 
 let store;
 switch (document.location.hostname === "localhost" ? null : "persist") {
   case "persist":
-    store = createStore(
-      persistedReducer,
-      defaultState,
-      enhancers
-    );
+    store = createStore(persistedReducer, defaultState, enhancers);
     break;
   default:
-    store = createStore(
-      rootReducer,
-      defaultState,
-      enhancers
-    );
+    store = createStore(rootReducer, defaultState, enhancers);
 }
 
 export const history = syncHistoryWithStore(browserHistory, store);
@@ -108,11 +89,7 @@ export const configureStore = () => {
   if (process.env.NODE_ENV !== "production") {
     if (module.hot) {
       module.hot.accept("./reducers", () => {
-        store.replaceReducer(
-          rootReducer,
-          defaultState,
-          applyMiddleware(thunkMiddleware)
-        );
+        store.replaceReducer(rootReducer, defaultState, applyMiddleware(thunkMiddleware));
       });
     }
   }

@@ -19,7 +19,7 @@ import {
   PageTitle,
   PageSubtitle,
   Separator,
-  radius
+  radius,
 } from "interviewjs-styleguide";
 
 import { DetailsForm, MetaForm, Poll } from "../";
@@ -77,7 +77,7 @@ export default class PublishStoryModal extends Component {
     super(props);
 
     let storyBase = "/"; // FIXME: local-dev url?
-    switch(document.location.hostname) {
+    switch (document.location.hostname) {
       case "composer.interviewjs.net.s3-website-us-east-1.amazonaws.com":
         storyBase = "http://story.interviewjs.net.s3-website-us-east-1.amazonaws.com";
         break;
@@ -94,7 +94,7 @@ export default class PublishStoryModal extends Component {
     this.state = {
       step: 0,
       storyKey: null,
-      storyBase
+      storyBase,
     };
 
     this.handleStep0 = this.handleStep0.bind(this);
@@ -107,10 +107,7 @@ export default class PublishStoryModal extends Component {
     if (this.iframe) {
       this.iframe.addEventListener("load", () => {
         // console.log("iframe loaded");
-        if (!this.state.storyKey) setTimeout(
-          () => this.iframe.contentWindow.postMessage(this.props.story, "*"),
-          5000
-        );
+        if (!this.state.storyKey) setTimeout(() => this.iframe.contentWindow.postMessage(this.props.story, "*"), 5000);
       });
     }
   }
@@ -130,7 +127,7 @@ export default class PublishStoryModal extends Component {
     if (story.ignore) {
       this.setState({
         step: this.state.step + 1,
-        storyKey: null
+        storyKey: null,
       });
 
       return;
@@ -144,16 +141,16 @@ export default class PublishStoryModal extends Component {
     Storage.put(`stories/${this.props.user.id}/${story.id}/story.json`, JSON.stringify(story), {
       bucket: "data.interviewjs.io",
       level: "public",
-      contentType: "application/json"
+      contentType: "application/json",
     })
-    .then (async result => {
-      console.log(result);
-      this.setState({
-        step: this.state.step + 1,
-        storyKey: computeId(this.props.user.id, this.props.story.id)
-      });
-    })
-    .catch(err => console.log(err));
+      .then(async result => {
+        console.log(result);
+        this.setState({
+          step: this.state.step + 1,
+          storyKey: computeId(this.props.user.id, this.props.story.id),
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   handleStep3() {
@@ -183,46 +180,31 @@ export default class PublishStoryModal extends Component {
         return (
           <Container limit="s" align="center">
             <PageSubtitle typo="h3">
-              Give the readers a quest, tell them what they will learn about a
-              topic when speaking to the interviewees.
+              Give the readers a quest, tell them what they will learn about a topic when speaking to the interviewees.
             </PageSubtitle>
             <Separator size="m" silent />
-            <DetailsForm
-              handleSubmit={this.handleStep1}
-              story={this.props.story}
-              cta="Confirm"
-              required
-            />
+            <DetailsForm handleSubmit={this.handleStep1} story={this.props.story} cta="Confirm" required />
           </Container>
         );
       } else if (step === 2) {
         return (
           <Container limit="s" align="center">
-            <PageSubtitle typo="h3">
-              Engage your readers. Ask them to have their say…
-            </PageSubtitle>
+            <PageSubtitle typo="h3">Engage your readers. Ask them to have their say…</PageSubtitle>
             <Separator size="m" silent />
-            <Poll
-              {...this.props}
-              cta="Publish Story"
-              handleSubmit={this.handleStep2}
-              story={this.props.story}
-            />
+            <Poll {...this.props} cta="Publish Story" handleSubmit={this.handleStep2} story={this.props.story} />
           </Container>
         );
       } else if (step === 3) {
         return (
           <Container limit="s" align="center">
-            <PageSubtitle typo="h3">
-              Well done! Your story is now up and running. Here’s a preview:
-            </PageSubtitle>
+            <PageSubtitle typo="h3">Well done! Your story is now up and running. Here’s a preview:</PageSubtitle>
             <Separator size="m" silent />
             <PreviewWrapper>
               <img src={iframeRatioSpacer} alt="" />
               <iframe
                 title="Preview"
                 src={`${iframeViewer}?${uuidv4()}`}
-                ref={(iframe) => {
+                ref={iframe => {
                   this.iframe = iframe;
                 }}
               >
@@ -236,12 +218,7 @@ export default class PublishStoryModal extends Component {
               <Action fixed primary onClick={this.handleStep3}>
                 Close
               </Action>
-              <Action
-                fixed
-                href={`${iframeViewer}`}
-                secondary
-                target="_blank"
-              >
+              <Action fixed href={`${iframeViewer}`} secondary target="_blank">
                 Open your story
               </Action>
             </Actionbar>
@@ -263,28 +240,16 @@ export default class PublishStoryModal extends Component {
             <PageTitle typo="h1">Publish Story</PageTitle>
             <Separator size="s" silent />
             <Breadcrumbs count={4}>
-              <Breadcrumb
-                onClick={step >= 0 ? () => this.setState({ step: 0 }) : null}
-                state={getStepState(step, 0)}
-              >
+              <Breadcrumb onClick={step >= 0 ? () => this.setState({ step: 0 }) : null} state={getStepState(step, 0)}>
                 Review basic info
               </Breadcrumb>
-              <Breadcrumb
-                onClick={step >= 1 ? () => this.setState({ step: 1 }) : null}
-                state={getStepState(step, 1)}
-              >
+              <Breadcrumb onClick={step >= 1 ? () => this.setState({ step: 1 }) : null} state={getStepState(step, 1)}>
                 Review context
               </Breadcrumb>
-              <Breadcrumb
-                onClick={step >= 2 ? () => this.setState({ step: 2 }) : null}
-                state={getStepState(step, 2)}
-              >
+              <Breadcrumb onClick={step >= 2 ? () => this.setState({ step: 2 }) : null} state={getStepState(step, 2)}>
                 Add closing poll
               </Breadcrumb>
-              <Breadcrumb
-                onClick={step >= 3 ? () => this.setState({ step: 3 }) : null}
-                state={getStepState(step, 3)}
-              >
+              <Breadcrumb onClick={step >= 3 ? () => this.setState({ step: 3 }) : null} state={getStepState(step, 3)}>
                 Share your story
               </Breadcrumb>
             </Breadcrumbs>
@@ -309,9 +274,9 @@ PublishStoryModal.propTypes = {
   updateInterviewee: func.isRequired,
   updateStory: func.isRequired,
   story: object.isRequired,
-  user: object.isRequired
+  user: object.isRequired,
 };
 
 PublishStoryModal.defaultProps = {
-  stories: []
+  stories: [],
 };

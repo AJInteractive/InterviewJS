@@ -1,6 +1,6 @@
-import { func, number, object } from 'prop-types';
-import css from 'styled-components';
-import React from 'react';
+import { func, number, object } from "prop-types";
+import css from "styled-components";
+import React from "react";
 
 import {
   Container,
@@ -9,7 +9,7 @@ import {
   PaneTabs,
   Tip,
   radius
-} from 'interviewjs-styleguide';
+} from "interviewjs-styleguide";
 
 import {
   EmbedPane,
@@ -18,7 +18,7 @@ import {
   MapPane,
   MediaPane,
   TextPane
-} from './interviewee';
+} from "./interviewee";
 
 const PaneEl = css(Container)`
   align-items: stretch;
@@ -41,22 +41,22 @@ export default class IntervieweePane extends React.Component {
     super(props);
     this.state = {
       draft: {
-        text: { value: '' },
-        link: { value: '', title: '' },
+        text: { value: "" },
+        link: { value: "", title: "" },
         image: {
-          value: '',
-          title: ''
+          value: "",
+          title: ""
         },
-        embed: { value: '' },
-        map: { value: '' },
-        media: { value: '' }
+        embed: { value: "" },
+        map: { value: "" },
+        media: { value: "" }
       },
       clean: {
-        embed: '',
-        map: '',
-        media: ''
+        embed: "",
+        map: "",
+        media: ""
       },
-      tab: 'text'
+      tab: "text"
     };
     this.addStorylineItem = this.addStorylineItem.bind(this);
     this.updateDraft = this.updateDraft.bind(this);
@@ -90,12 +90,12 @@ export default class IntervieweePane extends React.Component {
     const { draft, clean } = this.state;
 
     let content = draft[source];
-    if (source === 'embed' || source === 'map' || source === 'media')
+    if (source === "embed" || source === "map" || source === "media")
       content = { value: clean[source], title: draft[source].title };
 
     const newIntervieweeBubble = {
       content,
-      role: 'interviewee',
+      role: "interviewee",
       type: this.state.tab
     };
 
@@ -106,7 +106,7 @@ export default class IntervieweePane extends React.Component {
     );
 
     this.setState({
-      draft: { ...this.state.draft, [source]: { value: '', title: '' } }
+      draft: { ...this.state.draft, [source]: { value: "", title: "" } }
     });
 
     this.props.showSavedIndicator();
@@ -117,11 +117,11 @@ export default class IntervieweePane extends React.Component {
     const { currentInterviewee, story } = this.props;
     return (
       <PaneEl fill="white" rounded shift dir="column">
-        <Container flex={[0, 0, 'auto']}>
+        <Container flex={[0, 0, "auto"]}>
           <PaneTabs className="jr-step3">
             <PaneTab
-              active={tab === 'text'}
-              onClick={() => this.setState({ tab: 'text' })}
+              active={tab === "text"}
+              onClick={() => this.setState({ tab: "text" })}
               opinionated
             >
               <Tip title="Insert Text">
@@ -129,8 +129,8 @@ export default class IntervieweePane extends React.Component {
               </Tip>
             </PaneTab>
             <PaneTab
-              active={tab === 'link'}
-              onClick={() => this.setState({ tab: 'link' })}
+              active={tab === "link"}
+              onClick={() => this.setState({ tab: "link" })}
               opinionated
             >
               <Tip title="Insert Link">
@@ -138,8 +138,8 @@ export default class IntervieweePane extends React.Component {
               </Tip>
             </PaneTab>
             <PaneTab
-              active={tab === 'image'}
-              onClick={() => this.setState({ tab: 'image' })}
+              active={tab === "image"}
+              onClick={() => this.setState({ tab: "image" })}
               opinionated
             >
               <Tip title="Insert Image">
@@ -147,8 +147,8 @@ export default class IntervieweePane extends React.Component {
               </Tip>
             </PaneTab>
             <PaneTab
-              active={tab === 'embed'}
-              onClick={() => this.setState({ tab: 'embed' })}
+              active={tab === "embed"}
+              onClick={() => this.setState({ tab: "embed" })}
               opinionated
             >
               <Tip title="Embed iframe">
@@ -156,8 +156,8 @@ export default class IntervieweePane extends React.Component {
               </Tip>
             </PaneTab>
             <PaneTab
-              active={tab === 'map'}
-              onClick={() => this.setState({ tab: 'map' })}
+              active={tab === "map"}
+              onClick={() => this.setState({ tab: "map" })}
               opinionated
             >
               <Tip title="Embed map">
@@ -165,8 +165,8 @@ export default class IntervieweePane extends React.Component {
               </Tip>
             </PaneTab>
             <PaneTab
-              active={tab === 'media'}
-              onClick={() => this.setState({ tab: 'media' })}
+              active={tab === "media"}
+              onClick={() => this.setState({ tab: "media" })}
               opinionated
             >
               <Tip title="Embed video">
@@ -175,52 +175,52 @@ export default class IntervieweePane extends React.Component {
             </PaneTab>
           </PaneTabs>
         </Container>
-        <Container flex={[1, 1, '100%']}>
+        <Container flex={[1, 1, "100%"]}>
           <TextPane
             {...this.props}
-            active={tab === 'text'}
-            addStorylineItem={() => this.addStorylineItem('text')}
+            active={tab === "text"}
+            addStorylineItem={() => this.addStorylineItem("text")}
             draft={this.state.draft.text}
             srcText={story.interviewees[currentInterviewee].srcText}
-            updateDraft={(data) => this.updateDraft(data, 'text')}
+            updateDraft={(data) => this.updateDraft(data, "text")}
             updateSrcText={this.updateSrcText}
           />
           <LinkPane
             {...this.props}
-            active={tab === 'link'}
-            addStorylineItem={() => this.addStorylineItem('link')}
+            active={tab === "link"}
+            addStorylineItem={() => this.addStorylineItem("link")}
             draft={this.state.draft.link}
-            updateDraft={(data) => this.updateDraft(data, 'link')}
+            updateDraft={(data) => this.updateDraft(data, "link")}
           />
           <ImagePane
             {...this.props}
-            active={tab === 'image'}
-            addStorylineItem={() => this.addStorylineItem('image')}
+            active={tab === "image"}
+            addStorylineItem={() => this.addStorylineItem("image")}
             draft={this.state.draft.image}
-            updateDraft={(data) => this.updateDraft(data, 'image')}
+            updateDraft={(data) => this.updateDraft(data, "image")}
           />
           <EmbedPane
             {...this.props}
-            active={tab === 'embed'}
-            addStorylineItem={() => this.addStorylineItem('embed')}
+            active={tab === "embed"}
+            addStorylineItem={() => this.addStorylineItem("embed")}
             draft={this.state.draft.embed}
             updateDraft={(data, clean) =>
-              this.updateDraft(data, 'embed', clean)
+              this.updateDraft(data, "embed", clean)
             }
           />
           <MapPane
             {...this.props}
-            active={tab === 'map'}
-            addStorylineItem={() => this.addStorylineItem('map')}
+            active={tab === "map"}
+            addStorylineItem={() => this.addStorylineItem("map")}
             draft={this.state.draft.map}
-            updateDraft={(data, clean) => this.updateDraft(data, 'map', clean)}
+            updateDraft={(data, clean) => this.updateDraft(data, "map", clean)}
           />
           <MediaPane
             {...this.props}
-            active={tab === 'media'}
+            active={tab === "media"}
             draft={this.state.draft.media}
             updateDraft={(data, clean) =>
-              this.updateDraft(data, 'media', clean)
+              this.updateDraft(data, "media", clean)
             }
           />
         </Container>
