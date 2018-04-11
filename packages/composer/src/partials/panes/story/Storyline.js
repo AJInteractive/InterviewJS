@@ -2,7 +2,7 @@
 import { arrayOf, func, object, number } from "prop-types";
 import css from "styled-components";
 import React from "react";
-import Embed from "../../util/Embed"
+import {Embed} from "../../"
 
 import {
   Action,

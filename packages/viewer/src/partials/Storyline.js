@@ -3,7 +3,7 @@ import { arrayOf, func, string, object, shape } from "prop-types";
 import css from "styled-components";
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import Embed from "../../util/Embed"
+import Embed from "./util/Embed"
 
 import {
   Action,
