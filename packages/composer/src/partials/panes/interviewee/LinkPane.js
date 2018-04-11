@@ -65,6 +65,18 @@ export default class LinkPane extends Component {
             i
           </Legend>
         </FormItem>
+        <Separator size="m" silent />
+        <FormItem>
+          <Label>Display text (optional)</Label>
+          <TextInput
+            input
+            name="title"
+            onChange={e => this.handleChange(e)}
+            placeholder="Type the text to be hyperlinked"
+            value={title}
+          />
+          <Legend tip="Type the text to be hyperlinked">i</Legend>
+        </FormItem>
       </PaneFrame>
     );
   }

@@ -198,11 +198,11 @@ export default class Storyline extends React.Component {
       } else if (type === "link") {
         return (
           <Bubble
-            displayType="plain"
+            displayType="rich"
             persona={role}
             theme={{ backg: interviewee.color, font:"PT sans" }}
           >
-            <Embed color={interviewee.color} title={content.title} value={content.value} />
+            <Embed title={content.title} value={content.value} />
           </Bubble>
         );
       } else if (type === "image") {

@@ -1,72 +1,58 @@
 import React, { Component } from "react";
 import { string } from "prop-types";
+import css from "styled-components";
+import axios from "axios";
+import { Text } from "interviewjs-styleguide";
 
-// Embedly script: one-time init of the embedly platform.js
-if (typeof window !== "undefined") {
-  const initEmbedly = (w, d) => { /* eslint-disable no-param-reassign */
-    const id = "embedly-platform";
-    const n = "script";
-    if (!d.getElementById(id)) { 
-      const embedlyFunc = () =>  { 
-        (w.embedly.q = w.embedly.q || []).push(arguments);
-      };
-      w.embedly = w.embedly || embedlyFunc;
-      const e = d.createElement(n);
-      e.id = id;
-      e.async = 1;
-      e.src =
-        `${document.location.protocol === "https:" ?
-         "https" : "http"}://cdn.embedly.com/widgets/platform.js`;
-      const s = d.getElementsByTagName(n)[0];
-      s.parentNode.insertBefore(e, s);
-    }
-  };
-  initEmbedly(window, document);
-}
+const Thumbnail = css.img`
+  padding: 5%;
+  width: 100%;
+`;
 
-/* eslint no-bitwise: [2, { allow: ["&", ">>"] }] */
-const isDark = (color) => {
-  const c = color.substring(1);
-  const rgb = parseInt(c, 16);
-  const r = (rgb >> 16) & 0xff;
-  const g = (rgb >> 8) & 0xff;
-  const b = (rgb >> 0) & 0xff;
-  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  if (luma < 100) return true;
-  return false;
-}
+const PreviewTitle = css.a`
+  font-weight: 400;
+  font-size: 20px;
+`;
+
+const Description = css(Text)`
+  font-family: "PT sans";
+  font-weight: 100;
+`;
 
 export default class Embed extends Component {
   constructor(props) {
     super(props);
-    this.state = { color: props.color };
+    this.state = { meta: {} };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.color !== this.state.color) {
-      this.setState({ color: nextProps.color });
-    }
-    return null;
+  componentDidMount() {
+    axios
+      .get("https://api.embedly.com/1/oembed", {
+        params: {
+          url: this.props.value,
+          key: "be5e8807bede4504bb37a33c736fdcf8"
+        }
+      })
+      .then(res => {
+        this.setState({ meta: res.data });
+      });
   }
 
   render() {
     return (
       <div>
-        <a
-          href={this.props.value}
-          data-card-theme={isDark(this.state.color) ? "dark" : "light"}
-          className="embedly-card"
-          target="_blank"
-        >
-          {this.props.title ? this.props.title : this.props.value}
-        </a>
+        <Thumbnail src={this.state.meta.thumbnail_url} alt="" />
+        <PreviewTitle href={this.props.value} target="_blank">
+          {this.props.title ? this.props.title : this.state.meta.title}
+        </PreviewTitle>
+        <br />
+        <Description>{this.state.meta.description}</Description>
       </div>
     );
   }
 }
 
 Embed.propTypes = {
-  color: string.isRequired,
   value: string.isRequired,
   title: string.isRequired
 };
