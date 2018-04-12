@@ -96,7 +96,6 @@ export default class ComposerView extends React.Component {
     };
     this.deleteInterviewee = this.deleteInterviewee.bind(this);
     this.initTour = this.initTour.bind(this);
-    this.joyrideCallback = this.joyrideCallback.bind(this);
     this.showSavedIndicator = this.showSavedIndicator.bind(this);
     this.switchInterviewee = this.switchInterviewee.bind(this);
     this.toggleBubbleEdit = this.toggleBubbleEdit.bind(this);
