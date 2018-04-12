@@ -23,7 +23,6 @@ import {
   setHeight,
   setSpace,
   time,
-  // PageParagraph
 } from "interviewjs-styleguide";
 
 import { configureStore } from "../configureStore";

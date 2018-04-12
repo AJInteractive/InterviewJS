@@ -1,4 +1,8 @@
 /* eslint react/no-danger: 0 */
+/* eslint react/prop-types: 0 */
+/* eslint no-plusplus: 0 */
+/* eslint no-cond-assign: 0 */
+/* eslint no-param-reassign: 0 */
 import { arrayOf, func, object, number } from "prop-types";
 import css from "styled-components";
 import React from "react";

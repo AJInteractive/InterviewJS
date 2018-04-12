@@ -77,7 +77,7 @@ export default class MediaPane extends Component {
             area
             name="value"
             onChange={e => this.handleChange(e)}
-            placeholder={`Insert an iframe to embed a video directly into your chat`}
+            placeholder="Insert an iframe to embed a video directly into your chat"
             required
             rows={10}
             type="url"

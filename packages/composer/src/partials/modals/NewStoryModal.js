@@ -1,4 +1,5 @@
 /* eslint react/forbid-prop-types: 0 */
+/* eslint no-param-reassign: 0 */
 import React, { Component } from "react";
 import ReactModal from "react-modal";
 import { arrayOf, bool, func, object } from "prop-types";
