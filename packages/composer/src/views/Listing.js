@@ -29,13 +29,7 @@ import {
 import { configureStore } from "../configureStore";
 import { syncRemoteStories } from "../actions/actionCreators";
 
-import {
-  AboutModal,
-  NewStoryModal,
-  Stories,
-  Story,
-  WelcomeModal
-} from "../partials";
+import { AboutModal, NewStoryModal, Stories, Story, WelcomeModal } from "../partials";
 
 const store = configureStore();
 
@@ -159,7 +153,7 @@ export default class ListingView extends Component {
     this.state = {
       aboutModal: false,
       createStoryModal: false,
-      welcomeModal: true
+      welcomeModal: true,
     };
     this.blockWelcomeModal = this.blockWelcomeModal.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -168,12 +162,14 @@ export default class ListingView extends Component {
   }
 
   componentDidMount() {
-    if (! this.props.user.ignore && typeof this.props.user.id === "string") store.dispatch(syncRemoteStories(this.props.user.id, this.props.user.email));
-    if (! this.props.user || ! this.props.user.id || this.props.user.ignore) this.props.router.push(`/`);
+    if (!this.props.user.ignore && typeof this.props.user.id === "string")
+      store.dispatch(syncRemoteStories(this.props.user.id, this.props.user.email));
+    if (!this.props.user || !this.props.user.id || this.props.user.ignore) this.props.router.push(`/`);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.user.id !== nextProps.user.id && ! nextProps.user.ignore && typeof nextProps.user.id === "string") store.dispatch(syncRemoteStories(nextProps.user.id ? nextProps.user.id : "", nextProps.user.email));
+    if (this.props.user.id !== nextProps.user.id && !nextProps.user.ignore && typeof nextProps.user.id === "string")
+      store.dispatch(syncRemoteStories(nextProps.user.id ? nextProps.user.id : "", nextProps.user.email));
   }
 
   handleLogout() {
@@ -200,11 +196,7 @@ export default class ListingView extends Component {
     const welcomeModalBlocker = localStorage.getItem("welcomeModalBlocker");
     return [
       welcomeModalBlocker !== "active" ? (
-        <WelcomeModal
-          handleClose={this.blockWelcomeModal}
-          isOpen={welcomeModal}
-          key="WelcomeModal"
-        />
+        <WelcomeModal handleClose={this.blockWelcomeModal} isOpen={welcomeModal} key="WelcomeModal" />
       ) : null,
       <Page key="Page">
         <PageHead>
@@ -263,20 +255,13 @@ export default class ListingView extends Component {
                     {...this.props}
                     deleteStory={() => this.props.deleteStory(i)}
                     key={story.id}
-                    openStory={() =>
-                      this.props.router.push(`/stories/${story.id}`)
-                    }
+                    openStory={() => this.props.router.push(`/stories/${story.id}`)}
                     story={story}
                     storyIndex={i}
                   />
                 ))
               ) : (
-                <StoryNew
-                  fill="white"
-                  onClick={this.toggleNewStoryModal}
-                  padded
-                  shift
-                >
+                <StoryNew fill="white" onClick={this.toggleNewStoryModal} padded shift>
                   <PageSubtitle typo="h2">Create new</PageSubtitle>
                   <Text typo="p2">Start your new story here…</Text>
                 </StoryNew>
@@ -299,13 +284,8 @@ export default class ListingView extends Component {
         />
       ) : null,
       aboutModal ? (
-        <AboutModal
-          {...this.props}
-          handleClose={this.toggleAboutModal}
-          isOpen={aboutModal}
-          key="AboutModal"
-        />
-      ) : null
+        <AboutModal {...this.props} handleClose={this.toggleAboutModal} isOpen={aboutModal} key="AboutModal" />
+      ) : null,
     ];
   }
 }
@@ -319,8 +299,8 @@ ListingView.propTypes = {
   user: shape({
     name: string,
     id: string,
-    avatar: string
-  })
+    avatar: string,
+  }),
 };
 
 ListingView.defaultProps = {
@@ -329,5 +309,5 @@ ListingView.defaultProps = {
   router: null,
   stories: [],
   updateStory: null,
-  user: {}
+  user: {},
 };

@@ -18,7 +18,7 @@ const StoriesList = css.ol`
   }
 `;
 
-const Stories = (props) => (
+const Stories = props => (
   <Container>
     <StoriesListHead dir="row">
       <Container flex={[1, 1, "60%"]}>
@@ -44,7 +44,7 @@ const Stories = (props) => (
 );
 
 Stories.propTypes = {
-  children: oneOfType([arrayOf(node), node]).isRequired
+  children: oneOfType([arrayOf(node), node]).isRequired,
 };
 
 Stories.defaultProps = {};

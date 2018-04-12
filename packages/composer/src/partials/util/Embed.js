@@ -30,8 +30,8 @@ export default class Embed extends Component {
       .get("https://api.embedly.com/1/oembed", {
         params: {
           url: this.props.value,
-          key: "be5e8807bede4504bb37a33c736fdcf8"
-        }
+          key: "be5e8807bede4504bb37a33c736fdcf8",
+        },
       })
       .then(res => {
         this.setState({ meta: res.data });
@@ -54,7 +54,7 @@ export default class Embed extends Component {
 
 Embed.propTypes = {
   value: string.isRequired,
-  title: string.isRequired
+  title: string.isRequired,
 };
 
 Embed.defaultProps = {};

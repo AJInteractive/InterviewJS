@@ -1,5 +1,5 @@
 const GLOBALS = {
-  fixedButtonCharLimit: 36
+  fixedButtonCharLimit: 36,
 };
 
 export default GLOBALS;

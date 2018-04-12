@@ -3,17 +3,7 @@ import { arrayOf, func, number, object, string } from "prop-types";
 import css from "styled-components";
 import React from "react";
 
-import {
-  Action,
-  Actionbar,
-  Avatar,
-  Container,
-  Icon,
-  Separator,
-  Text,
-  color,
-  setSpace
-} from "interviewjs-styleguide";
+import { Action, Actionbar, Avatar, Container, Icon, Separator, Text, color, setSpace } from "interviewjs-styleguide";
 
 import { IntervieweeForm } from "../";
 
@@ -48,7 +38,7 @@ export default class Interviewees extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editItem: this.props.editItem
+      editItem: this.props.editItem,
     };
     this.createInterviewee = this.createInterviewee.bind(this);
     this.deleteInterviewee = this.deleteInterviewee.bind(this);
@@ -99,22 +89,12 @@ export default class Interviewees extends React.Component {
                         <Avatar image={interviewee.avatar} size="l" />
                       </Container>
                       <Container flex={[1, 2, "100%"]} align="left">
-                        <IntervieweeName typo="p4">
-                          {interviewee.name}
-                        </IntervieweeName>
-                        <IntervieweeTitle typo="p5">
-                          {interviewee.title}
-                        </IntervieweeTitle>
-                        <IntervieweeBio typo="p5">
-                          {interviewee.bio}
-                        </IntervieweeBio>
+                        <IntervieweeName typo="p4">{interviewee.name}</IntervieweeName>
+                        <IntervieweeTitle typo="p5">{interviewee.title}</IntervieweeTitle>
+                        <IntervieweeBio typo="p5">{interviewee.bio}</IntervieweeBio>
                       </Container>
                       <Container flex={[1, 1, "auto"]}>
-                        <Action
-                          iconic
-                          secondary
-                          onClick={() => this.toggleEditInterviewee(i)}
-                        >
+                        <Action iconic secondary onClick={() => this.toggleEditInterviewee(i)}>
                           <Icon name="pen" size="s" />
                         </Action>
                       </Container>
@@ -139,9 +119,7 @@ export default class Interviewees extends React.Component {
         return (
           <IntervieweeForm
             allowDelete={interviewees.length > 1}
-            deleteInterviewee={() =>
-              this.deleteInterviewee(this.state.editItem)
-            }
+            deleteInterviewee={() => this.deleteInterviewee(this.state.editItem)}
             handleCancel={() => this.setState({ editItem: null })}
             handleSubmit={this.updateInterviewee}
             interviewee={interviewees[this.state.editItem]}
@@ -151,7 +129,12 @@ export default class Interviewees extends React.Component {
         );
       }
       return (
-        <IntervieweeForm handleSubmit={this.createInterviewee} persistent story={this.props.story} user={this.props.user} />
+        <IntervieweeForm
+          handleSubmit={this.createInterviewee}
+          persistent
+          story={this.props.story}
+          user={this.props.user}
+        />
       );
     };
     return <Container>{getPartialBody()}</Container>;
@@ -174,5 +157,5 @@ Interviewees.propTypes = {
 Interviewees.defaultProps = {
   editItem: null,
   cta: "Done",
-  interviewees: []
+  interviewees: [],
 };

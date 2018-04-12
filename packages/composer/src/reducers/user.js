@@ -11,7 +11,7 @@ function stories(state = [], action) {
       return [
         ...state.slice(0, i), // before the one we’re updating
         { ...state[i], likes: state[i].likes + 1 },
-        ...state.slice(i + 1) // after the one we’re updating
+        ...state.slice(i + 1), // after the one we’re updating
       ];
 
     case "SIGNIN_USER":

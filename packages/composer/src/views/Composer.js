@@ -1,7 +1,7 @@
-import React from 'react';
-import css from 'styled-components';
-import { arrayOf, func, object, shape, string } from 'prop-types';
-import Joyride from 'react-joyride';
+import React from "react";
+import css from "styled-components";
+import { arrayOf, func, object, shape, string } from "prop-types";
+import Joyride from "react-joyride";
 
 import {
   Action,
@@ -15,10 +15,10 @@ import {
   color,
   font,
   radius,
-  setSpace
-} from 'interviewjs-styleguide';
+  setSpace,
+} from "interviewjs-styleguide";
 
-import './joyride.css';
+import "./joyride.css";
 
 import {
   DetailsModal,
@@ -27,8 +27,8 @@ import {
   PublishStoryModal,
   StoryPane,
   UserPane,
-  ErrorBoundary
-} from '../partials';
+  ErrorBoundary,
+} from "../partials";
 
 const Page = css.div`
   align-content: stretch;
@@ -60,21 +60,21 @@ const SaveIndicator = css(Text)`
 `;
 
 const PageBody = css.div`
-  ${setSpace('pbm')};
-  ${setSpace('phm')};
+  ${setSpace("pbm")};
+  ${setSpace("phm")};
   align-content: stretch;
   align-items: stretch;
   display: flex;
   flex-direction: row;
   flex: 0 1 100%;
   & > *:first-child {
-    ${setSpace('mrs')};
+    ${setSpace("mrs")};
   }
   & > *:nth-child(2) {
-    ${setSpace('mhs')};
+    ${setSpace("mhs")};
   }
   & > *:last-child {
-    ${setSpace('mls')};
+    ${setSpace("mls")};
   }
 `;
 
@@ -84,10 +84,10 @@ export default class ComposerView extends React.Component {
     this.state = {
       currentBubble: null,
       currentInterviewee: 0,
-      detailsModal: '',
+      detailsModal: "",
       joyrideSteps: [],
       publishModal: false,
-      savedLabel: null
+      savedLabel: null,
     };
     this.deleteInterviewee = this.deleteInterviewee.bind(this);
     this.initTour = this.initTour.bind(this);
@@ -111,139 +111,139 @@ export default class ComposerView extends React.Component {
       borderRadius: radius.l,
       color: color.white,
       mainColor: color.white,
-      textAlign: 'left',
+      textAlign: "left",
       padding: 0,
       arrow: {},
       beacon: {
         inner: color.greenM,
-        outer: color.greenM
+        outer: color.greenM,
       },
       header: {
-        border: 'none',
+        border: "none",
         fontFamily: font.serif,
-        fontSize: '15px',
-        fontWeight: 'bold',
-        lineHeight: '20px'
+        fontSize: "15px",
+        fontWeight: "bold",
+        lineHeight: "20px",
       },
       main: {
         color: color.greyLLt,
         fontFamily: font.serif,
-        fontSize: '14px',
-        lineHeight: '20px',
+        fontSize: "14px",
+        lineHeight: "20px",
         margin: 0,
-        padding: '7pxpx 0'
+        padding: "7pxpx 0",
       },
       footer: {
-        paddingTop: '3px'
+        paddingTop: "3px",
       },
       button: {
-        borderRadius: '100px',
+        borderRadius: "100px",
         boxShadow: `0 1px 3px ${color.shadowM}`,
         color: color.blueM,
         fontFamily: font.serif,
-        fontSize: '13px',
-        padding: '7px 12px'
+        fontSize: "13px",
+        padding: "7px 12px",
       },
       skip: {
         color: color.flareLD,
         fontFamily: font.serif,
-        fontSize: '13px',
-        padding: '7px 0',
-        textDecoration: 'underline'
+        fontSize: "13px",
+        padding: "7px 0",
+        textDecoration: "underline",
       },
       back: {
         color: color.flareLD,
         fontFamily: font.serif,
-        fontSize: '13px',
-        padding: '7px 0',
-        textDecoration: 'underline'
+        fontSize: "13px",
+        padding: "7px 0",
+        textDecoration: "underline",
       },
       close: {},
-      hole: {}
+      hole: {},
     };
     const steps = [
       {
-        title: 'Welcome to the InterviewJS dashboard! ',
+        title: "Welcome to the InterviewJS dashboard! ",
         text:
-          'Here’s where you convert your interviews into messaging exchanges. Follow us on a quick tour. You don’t have to remember everything - once you’re starting to build conversations you can click ‘i’ for extra info and guidance.',
-        selector: '.jr-intro',
+          "Here’s where you convert your interviews into messaging exchanges. Follow us on a quick tour. You don’t have to remember everything - once you’re starting to build conversations you can click ‘i’ for extra info and guidance.",
+        selector: ".jr-intro",
         style: joyrideStyles,
-        position: 'top-left'
+        position: "top-left",
       },
       {
-        title: '1. This is the chat panel',
+        title: "1. This is the chat panel",
         text:
-          'It displays the conversations between your interviewees and end users. Switch between different messaging exchanges by clicking the interviewee profile pictures at the top.',
-        selector: '.jr-step1',
+          "It displays the conversations between your interviewees and end users. Switch between different messaging exchanges by clicking the interviewee profile pictures at the top.",
+        selector: ".jr-step1",
         style: joyrideStyles,
-        position: 'left'
+        position: "left",
       },
       {
-        title: '2. This is the interviewee panel',
+        title: "2. This is the interviewee panel",
         text:
-          'Use this space to create text messages from an interview or transcript.  Type a text or paste a transcript, then highlight and select a quote and click + to add it to the chat panel in the middle.',
-        selector: '.jr-step2',
+          "Use this space to create text messages from an interview or transcript.  Type a text or paste a transcript, then highlight and select a quote and click + to add it to the chat panel in the middle.",
+        selector: ".jr-step2",
         style: joyrideStyles,
-        position: 'right'
+        position: "right",
       },
       {
-        title: '3. Create multimedia messages',
+        title: "3. Create multimedia messages",
         text:
-          'Your interviewee can respond with more than just text. Select these icons to create messages that contain links, photos, videos, maps or audio.',
-        selector: '.jr-step3',
+          "Your interviewee can respond with more than just text. Select these icons to create messages that contain links, photos, videos, maps or audio.",
+        selector: ".jr-step3",
         style: joyrideStyles,
-        position: 'bottom'
+        position: "bottom",
       },
       {
-        title: '4. This is the user panel',
+        title: "4. This is the user panel",
         text:
-          'Here you create interactions for the readers of your chat story.  We call them ‘users’ because InterviewJS allows them to actively engage with the interviewees via the interactions that you create for them.',
-        selector: '.jr-step4',
+          "Here you create interactions for the readers of your chat story.  We call them ‘users’ because InterviewJS allows them to actively engage with the interviewees via the interactions that you create for them.",
+        selector: ".jr-step4",
         style: joyrideStyles,
-        position: 'left'
+        position: "left",
       },
       {
-        title: '5. Option 1 - Single interaction ',
+        title: "5. Option 1 - Single interaction ",
         text:
-          'A single interaction simply moves the story on. Want users to ask the interviewee a question? Type it into the space provided! Alternatively choose a pre-scripted comment or type your own. Select tabs to create user requests for multimedia.  Then click + to add this user message to the central chat panel.',
-        selector: '.jr-step5',
+          "A single interaction simply moves the story on. Want users to ask the interviewee a question? Type it into the space provided! Alternatively choose a pre-scripted comment or type your own. Select tabs to create user requests for multimedia.  Then click + to add this user message to the central chat panel.",
+        selector: ".jr-step5",
         style: joyrideStyles,
-        position: 'left'
+        position: "left",
       },
       {
-        title: '6. Option 2 - Choice interaction',
+        title: "6. Option 2 - Choice interaction",
         text:
-          'Create a choice between two user interactions here. Select this after creating a question, a comment or a multimedia request above and add a second one in the same way. Once both interactions have been created, click + to add them to the central chat panel.',
-        selector: '.jr-step6',
+          "Create a choice between two user interactions here. Select this after creating a question, a comment or a multimedia request above and add a second one in the same way. Once both interactions have been created, click + to add them to the central chat panel.",
+        selector: ".jr-step6",
         style: joyrideStyles,
-        position: 'left'
+        position: "left",
       },
       {
-        title: '7. Edit your conversation',
+        title: "7. Edit your conversation",
         text:
-          'InterviewJS allows you to edit text in your messages. You can also re-arrange the order by drag and drop.',
-        selector: '.jr-step1',
+          "InterviewJS allows you to edit text in your messages. You can also re-arrange the order by drag and drop.",
+        selector: ".jr-step1",
         style: joyrideStyles,
-        position: 'left'
+        position: "left",
       },
       {
-        title: '8. Edit your story elements',
+        title: "8. Edit your story elements",
         text:
-          'Need to correct the title or edit a profile? Or give the user a bit more context? Select “story elements” to access your story intro and biographies.',
-        selector: '.jr-step7',
+          "Need to correct the title or edit a profile? Or give the user a bit more context? Select “story elements” to access your story intro and biographies.",
+        selector: ".jr-step7",
         style: joyrideStyles,
-        position: 'bottom'
+        position: "bottom",
       },
       {
-        title: '9. Publish',
+        title: "9. Publish",
         text:
-          'Once you’re done creating your story, you can publish it here - you’ll see a preview before it goes live! Each time you publish, you will be given a new link to share with your network.',
-        selector: '.jr-step8',
+          "Once you’re done creating your story, you can publish it here - you’ll see a preview before it goes live! Each time you publish, you will be given a new link to share with your network.",
+        selector: ".jr-step8",
         style: joyrideStyles,
-        position: 'bottom'
-      }
+        position: "bottom",
+      },
     ];
-    const doneComposerTour = localStorage.getItem('doneComposerTour');
+    const doneComposerTour = localStorage.getItem("doneComposerTour");
     if (!doneComposerTour) this.setState({ joyrideSteps: steps });
     // setTimeout(() => this.setState({ joyrideSteps: steps }), 3000);
   }
@@ -258,9 +258,7 @@ export default class ComposerView extends React.Component {
   }
 
   toggleDetailsModal(tab) {
-    return tab
-      ? this.setState({ detailsModal: tab })
-      : this.setState({ detailsModal: '' });
+    return tab ? this.setState({ detailsModal: tab }) : this.setState({ detailsModal: "" });
   }
 
   togglePublishModal() {
@@ -268,13 +266,13 @@ export default class ComposerView extends React.Component {
   }
 
   toggleBubbleEdit(target) {
-    console.log('toggleBubbleEdit :', target);
+    console.log("toggleBubbleEdit :", target);
     this.setState({ currentBubble: target });
   }
 
   updateStory(data) {
     const { storyId } = this.props.params;
-    const i = this.props.stories.findIndex((story) => story.id === storyId);
+    const i = this.props.stories.findIndex(story => story.id === storyId);
     this.props.updateStory(data, i);
     this.showSavedIndicator();
   }
@@ -286,15 +284,13 @@ export default class ComposerView extends React.Component {
   }
 
   joyrideCallback(cb) {
-    if (cb.type === 'finished') localStorage.setItem('doneComposerTour', true);
+    if (cb.type === "finished") localStorage.setItem("doneComposerTour", true);
     return null;
   }
 
   render() {
     const { storyId } = this.props.params;
-    const storyIndex = this.props.stories.findIndex(
-      (story) => story.id === storyId
-    );
+    const storyIndex = this.props.stories.findIndex(story => story.id === storyId);
     const story = this.props.stories[storyIndex];
 
     if (!story) {
@@ -302,7 +298,7 @@ export default class ComposerView extends React.Component {
       return null;
     }
 
-    console.log('COMPOSER PROPS: ', this.props);
+    console.log("COMPOSER PROPS: ", this.props);
 
     const renderSaveIndicator = () => {
       if (this.state.savedLabel === false) {
@@ -312,7 +308,7 @@ export default class ComposerView extends React.Component {
           <SaveIndicator typo="p5">
             <Icon name="checkmark" /> Saved
           </SaveIndicator>,
-          <Separator dir="v" size="m" />
+          <Separator dir="v" size="m" />,
         ];
       }
       return null;
@@ -327,17 +323,14 @@ export default class ComposerView extends React.Component {
                 <Icon name="arrow-left" size="x" /> My story library
               </Action>
               <Separator dir="v" size="m" />
-              <Action
-                onClick={() => this.toggleDetailsModal('meta')}
-                className="jr-step7"
-              >
+              <Action onClick={() => this.toggleDetailsModal("meta")} className="jr-step7">
                 <Icon
                   name="info2"
                   size="s"
                   style={{
-                    position: 'relative',
-                    top: '1px',
-                    marginRight: '2px'
+                    position: "relative",
+                    top: "1px",
+                    marginRight: "2px",
                   }}
                 />
                 {` `}Story elements
@@ -352,11 +345,7 @@ export default class ComposerView extends React.Component {
                 Help
               </Action>
               <Separator dir="v" size="m" />
-              <Action
-                primary
-                onClick={this.togglePublishModal}
-                className="jr-step8"
-              >
+              <Action primary onClick={this.togglePublishModal} className="jr-step8">
                 Publish Story
               </Action>
             </Container>
@@ -380,9 +369,7 @@ export default class ComposerView extends React.Component {
                 storyIndex={storyIndex}
                 switchInterviewee={this.switchInterviewee}
                 toggleBubbleEdit={this.toggleBubbleEdit}
-                toggleDetailsModal={() =>
-                  this.toggleDetailsModal('interviewees')
-                }
+                toggleDetailsModal={() => this.toggleDetailsModal("interviewees")}
               />
             </Container>
             <Container flex={[1, 1, `${100 / 3}%`]} className="jr-step4">
@@ -399,7 +386,7 @@ export default class ComposerView extends React.Component {
         </ErrorBoundary>
       </Page>,
       <MobileRedirect {...this.props} key="MobileRedirect" />,
-      this.state.detailsModal !== '' ? (
+      this.state.detailsModal !== "" ? (
         <DetailsModal
           {...this.props}
           deleteInterviewee={this.deleteInterviewee}
@@ -433,17 +420,17 @@ export default class ComposerView extends React.Component {
         showStepsProgress
         type="continuous"
         locale={{
-          back: 'Back',
-          close: 'Close',
-          last: 'Thanks!',
-          next: 'Next',
-          skip: 'Skip tour'
+          back: "Back",
+          close: "Close",
+          last: "Thanks!",
+          next: "Next",
+          skip: "Skip tour",
         }}
         holePadding={10}
         run // or some other boolean for when you want to start it
         // debug
         callback={this.joyrideCallback}
-      />
+      />,
     ];
   }
 }
@@ -454,12 +441,12 @@ ComposerView.propTypes = {
   router: object.isRequired /* eslint react/forbid-prop-types: 0 */,
   stories: arrayOf(object),
   user: object,
-  updateStory: func
+  updateStory: func,
 };
 
 ComposerView.defaultProps = {
   deleteInterviewee: null,
   stories: [],
   user: {},
-  updateStory: null
+  updateStory: null,
 };

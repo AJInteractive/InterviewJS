@@ -24,13 +24,13 @@ export function createStory({
       name: "Name of interviewee",
       srcText: "",
       storyline: [],
-      title: ""
-    }
+      title: "",
+    },
   ],
   intro = "",
   poll = [],
   pubDate = "",
-  title = ""
+  title = "",
 }) {
   return {
     type: "CREATE_STORY",
@@ -47,8 +47,8 @@ export function createStory({
       title,
       uid,
       id: uuidv4(),
-      modDate: new Date()
-    }
+      modDate: new Date(),
+    },
   };
 }
 
@@ -56,28 +56,28 @@ export function updateStory(payload, storyIndex) {
   return {
     type: "UPDATE_STORY",
     storyIndex,
-    payload
+    payload,
   };
 }
 
 export function syncStory(payload) {
   return {
     type: "SYNC_STORY",
-    payload
+    payload,
   };
 }
 
 export function syncAndSaveStory(payload) {
   return {
     type: "SYNC_AND_SAVE_STORY",
-    payload
+    payload,
   };
 }
 
 export function deleteStory(storyIndex) {
   return {
     type: "DELETE_STORY",
-    storyIndex
+    storyIndex,
   };
 }
 
@@ -88,8 +88,8 @@ export function createInterviewee(storyIndex, payload) {
     payload: {
       ...payload,
       id: `iv_${uuidv4()}`,
-      storyline: []
-    }
+      storyline: [],
+    },
   };
 }
 
@@ -98,7 +98,7 @@ export function updateInterviewee(storyIndex, intervieweeIndex, payload) {
     type: "UPDATE_INTERVIEWEE",
     intervieweeIndex,
     payload,
-    storyIndex
+    storyIndex,
   };
 }
 
@@ -106,7 +106,7 @@ export function deleteInterviewee(storyIndex, intervieweeIndex) {
   return {
     type: "DELETE_INTERVIEWEE",
     intervieweeIndex,
-    storyIndex
+    storyIndex,
   };
 }
 
@@ -117,22 +117,17 @@ export function addStorylineItem(storyIndex, intervieweeIndex, payload) {
     intervieweeIndex,
     order: 0,
     payload,
-    storyIndex
+    storyIndex,
   };
 }
 
-export function updateStorylineItem(
-  storyIndex,
-  intervieweeIndex,
-  storylineItemIndex,
-  payload
-) {
+export function updateStorylineItem(storyIndex, intervieweeIndex, storylineItemIndex, payload) {
   return {
     type: "UPDATE_STORYLINE_ITEM",
     intervieweeIndex,
     payload,
     storyIndex,
-    storylineItemIndex
+    storylineItemIndex,
   };
 }
 
@@ -141,59 +136,56 @@ export function moveStorylineItem(storyIndex, intervieweeIndex, payload) {
     type: "MOVE_STORYLINE_ITEM",
     intervieweeIndex,
     payload,
-    storyIndex
+    storyIndex,
   };
 }
 
-export function deleteStorylineItem(
-  storyIndex,
-  intervieweeIndex,
-  storyItemIndex
-) {
+export function deleteStorylineItem(storyIndex, intervieweeIndex, storyItemIndex) {
   return {
     type: "DELETE_STORYLINE_ITEM",
     intervieweeIndex,
     storyItemIndex,
-    storyIndex
+    storyIndex,
   };
 }
 
 export function signInUser(payload) {
   return {
     type: "SIGNIN_USER",
-    payload
+    payload,
   };
 }
 
 export function signOutUser() {
   return {
-    type: "SIGNOUT_USER"
+    type: "SIGNOUT_USER",
   };
 }
 
 export function noop() {
   return {
-    type: "NOOP"
+    type: "NOOP",
   };
 }
 
 export function syncRemoteStories() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(noop());
 
-    Storage.list('stories/', {
+    Storage.list("stories/", {
       bucket: "data.interviewjs.io",
       level: "private",
     })
       .then(async stories => {
         // console.log("AWS", stories);
-        stories.forEach(({key}) => {
+        stories.forEach(({ key }) => {
           Storage.get(key, {
             bucket: "data.interviewjs.io",
-            level: "private"
+            level: "private",
           })
             .then(url => {
-              axios.get(url)
+              axios
+                .get(url)
                 .then(response => {
                   // console.log('AWS', response.data);
                   if (response.data.ignore) {
@@ -207,10 +199,10 @@ export function syncRemoteStories() {
             .catch(error => Raven.captureException(error));
         });
       })
-    .catch(error => Raven.captureException(error));
+      .catch(error => Raven.captureException(error));
 
     return {
-      type: "NOOP"
+      type: "NOOP",
     };
   };
 }

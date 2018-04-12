@@ -2,14 +2,7 @@ import React from "react";
 import css from "styled-components";
 import { object } from "prop-types";
 
-import {
-  Action,
-  Actionbar,
-  Container,
-  PageTitle,
-  Separator,
-  breakpoint
-} from "interviewjs-styleguide";
+import { Action, Actionbar, Container, PageTitle, Separator, breakpoint } from "interviewjs-styleguide";
 
 const MobileRedirectEl = css(Container)`
   align-content: center;
@@ -23,10 +16,12 @@ const MobileRedirectEl = css(Container)`
   }
 `;
 
-const MobileRedirect = (props) => (
+const MobileRedirect = props => (
   <MobileRedirectEl key="Placeholder">
     <Container>
-      <PageTitle typo="h2">The composer works exclusively on desktops. Make sure your browser window is expanded.</PageTitle>
+      <PageTitle typo="h2">
+        The composer works exclusively on desktops. Make sure your browser window is expanded.
+      </PageTitle>
       <Separator silent size="m" />
       <Actionbar>
         <Action primary fixed onClick={() => props.router.push(`/stories`)}>
@@ -38,7 +33,7 @@ const MobileRedirect = (props) => (
 );
 
 MobileRedirect.propTypes = {
-  router: object.isRequired /* eslint react/forbid-prop-types: 0 */
+  router: object.isRequired /* eslint react/forbid-prop-types: 0 */,
 };
 
 MobileRedirect.defaultProps = {};

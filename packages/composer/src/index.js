@@ -4,7 +4,6 @@ import { render } from "react-dom";
 import { Route, Router, IndexRoute, Redirect } from "react-router";
 import ReactGA from "react-ga";
 
-
 import { configureStore, history } from "./configureStore";
 
 import App from "./App";

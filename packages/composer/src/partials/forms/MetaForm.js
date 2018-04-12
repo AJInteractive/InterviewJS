@@ -18,24 +18,22 @@ import {
   Label,
   Legend,
   Separator,
-  TextInput
+  TextInput,
 } from "interviewjs-styleguide";
 
 import validateField from "./validateField";
 
-
 const fileToKey = (data, storyId) => {
-    const { name, type } = data;
-    // console.log(name, type);
+  const { name, type } = data;
+  // console.log(name, type);
 
-    let namespace = storyId;
-    if (namespace.indexOf("_")) namespace = namespace.split("_").pop();
-    if (namespace.length < 36) namespace = shortUuid().toUUID(namespace);
+  let namespace = storyId;
+  if (namespace.indexOf("_")) namespace = namespace.split("_").pop();
+  if (namespace.length < 36) namespace = shortUuid().toUUID(namespace);
 
-    const uuid = uuidv5(`${type},${name}`, namespace);
-    return `${shortUuid().fromUUID(uuid)}-${name}`;
+  const uuid = uuidv5(`${type},${name}`, namespace);
+  return `${shortUuid().fromUUID(uuid)}-${name}`;
 };
-
 
 export default class MetaForm extends React.Component {
   constructor(props) {
@@ -48,11 +46,11 @@ export default class MetaForm extends React.Component {
         cover: this.props.story.cover,
         logo: this.props.story.logo,
         pubDate: this.props.story.pubDate,
-        title: this.props.story.title
+        title: this.props.story.title,
       },
       formValidation: {
-        title: null
-      }
+        title: null,
+      },
     };
     this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -70,8 +68,8 @@ export default class MetaForm extends React.Component {
     this.setState({
       formValidation: {
         ...this.state.formValidation,
-        [name]: validateField(target)
-      }
+        [name]: validateField(target),
+      },
     });
     return this.props.handleSave && validateField(target)
       ? this.props.handleSave({ [name]: this.state.formData[name] })
@@ -80,7 +78,7 @@ export default class MetaForm extends React.Component {
 
   handleChange(e) {
     this.setState({
-      formData: { ...this.state.formData, [e.target.name]: e.target.value }
+      formData: { ...this.state.formData, [e.target.name]: e.target.value },
     });
   }
 
@@ -90,17 +88,9 @@ export default class MetaForm extends React.Component {
     offScreenImage.addEventListener("load", () => {
       const maxWidth = key === "logo" ? 500 : 1000;
       console.log(key, maxWidth);
-      const targetWidth =
-        offScreenImage.width > maxWidth ? maxWidth : offScreenImage.width;
-      const targetHeight = parseInt(
-        targetWidth * offScreenImage.height / offScreenImage.width,
-        10
-      );
-      console.log(
-        `${offScreenImage.width} x ${
-          offScreenImage.height
-        } => ${targetWidth} x ${targetHeight}`
-      );
+      const targetWidth = offScreenImage.width > maxWidth ? maxWidth : offScreenImage.width;
+      const targetHeight = parseInt(targetWidth * offScreenImage.height / offScreenImage.width, 10);
+      console.log(`${offScreenImage.width} x ${offScreenImage.height} => ${targetWidth} x ${targetHeight}`);
 
       const offScreenCanvas = document.createElement("canvas");
       offScreenCanvas.width = targetWidth;
@@ -112,10 +102,10 @@ export default class MetaForm extends React.Component {
           unsharpAmount: 80,
           unsharpRadius: 0.6,
           unsharpThreshold: 2,
-          transferable: true
+          transferable: true,
         })
-        .then((result) => pica.toBlob(result, "image/jpeg", 0.9))
-        .then((blob) => {
+        .then(result => pica.toBlob(result, "image/jpeg", 0.9))
+        .then(blob => {
           // const reader = new FileReader();
           // reader.onloadend = () => {
           //   console.log("data url length", reader.result.length);
@@ -125,41 +115,42 @@ export default class MetaForm extends React.Component {
           //   });
           // };
           // reader.readAsDataURL(blob);
-          const fkey = fileToKey({type, name: sanitizeFilename(name.replace(/ /g, "_"))}, this.props.story.id);
+          const fkey = fileToKey({ type, name: sanitizeFilename(name.replace(/ /g, "_")) }, this.props.story.id);
           Storage.put(`files/${this.props.user.id}/${this.props.story.id}/${fkey}`, blob, {
             bucket: "data.interviewjs.io",
             level: "public",
-            contentType: type
+            contentType: type,
           })
-          .then (async result => {
-            console.log(result);
-            this.setState({
-              formData: { ...this.state.formData, [key]: `https://story.interviewjs.io/files/${this.props.user.id}/${this.props.story.id}/${fkey}` }
-            });
-          })
-          .catch(err => console.log(err));
+            .then(async result => {
+              console.log(result);
+              this.setState({
+                formData: {
+                  ...this.state.formData,
+                  [key]: `https://story.interviewjs.io/files/${this.props.user.id}/${this.props.story.id}/${fkey}`,
+                },
+              });
+            })
+            .catch(err => console.log(err));
           //
         })
-        .catch((error) => console.log(error));
+        .catch(error => console.log(error));
     });
     offScreenImage.src = preview;
   }
 
   render() {
     return (
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
+      <Form onSubmit={e => this.handleSubmit(e)}>
         <FormItem>
           <Label>Title</Label>
-          <CharacterCount>
-            {60 - this.state.formData.title.length}
-          </CharacterCount>
+          <CharacterCount>{60 - this.state.formData.title.length}</CharacterCount>
           <TextInput
             input
             maxLength="60"
             minLength="5"
             name="title"
-            onBlur={(e) => this.handleBlur(e)}
-            onChange={(e) => this.handleChange(e)}
+            onBlur={e => this.handleBlur(e)}
+            onChange={e => this.handleChange(e)}
             placeholder="Make it short and simple!"
             required
             valid={this.state.formValidation.title}
@@ -173,15 +164,13 @@ export default class MetaForm extends React.Component {
           <Container flex={[0, 0, `${100 / 3}%`]}>
             <FormItem>
               <Label>Byline</Label>
-              <CharacterCount>
-                {35 - this.state.formData.author.length}
-              </CharacterCount>
+              <CharacterCount>{35 - this.state.formData.author.length}</CharacterCount>
               <TextInput
                 input
                 maxLength="35"
                 name="author"
-                onBlur={(e) => this.handleBlur(e)}
-                onChange={(e) => this.handleChange(e)}
+                onBlur={e => this.handleBlur(e)}
+                onChange={e => this.handleChange(e)}
                 place="left"
                 required={this.props.required}
                 placeholder="Author’s name"
@@ -195,8 +184,8 @@ export default class MetaForm extends React.Component {
               <TextInput
                 input
                 name="authorLink"
-                onBlur={(e) => this.handleBlur(e)}
-                onChange={(e) => this.handleChange(e)}
+                onBlur={e => this.handleBlur(e)}
+                onChange={e => this.handleChange(e)}
                 place="middle"
                 placeholder="Link"
                 required={this.props.required}
@@ -211,8 +200,8 @@ export default class MetaForm extends React.Component {
                 input
                 maxLength="35"
                 name="pubDate"
-                onBlur={(e) => this.handleBlur(e)}
-                onChange={(e) => this.handleChange(e)}
+                onBlur={e => this.handleBlur(e)}
+                onChange={e => this.handleChange(e)}
                 place="right"
                 placeholder="Date of publication"
                 required={this.props.required}
@@ -229,17 +218,19 @@ export default class MetaForm extends React.Component {
               <Label>Cover photo</Label>
               <Dropzone
                 accept="image/jpeg, image/jpg, image/svg, image/gif, image/png"
-                ref={(node) => {
+                ref={node => {
                   this.dropzoneRef = node;
                 }}
-                onDrop={(accepted) => {
+                onDrop={accepted => {
                   this.handleFile("cover", accepted);
                 }}
                 style={{ display: "none" }}
               >
                 <p>Drop file here</p>
               </Dropzone>
-              { this.state.formData && this.state.formData.cover ? <img src={this.state.formData.cover} alt="Cover Preview" style={{width: "100%"}}/> : null }
+              {this.state.formData && this.state.formData.cover ? (
+                <img src={this.state.formData.cover} alt="Cover Preview" style={{ width: "100%" }} />
+              ) : null}
               <TextInput
                 file
                 place="left"
@@ -247,11 +238,7 @@ export default class MetaForm extends React.Component {
                   this.dropzoneRef.open();
                 }}
               />
-              <Legend
-                tip="Choose a photo if you want a “front page” but make sure you have the copyright!"
-              >
-                i
-              </Legend>
+              <Legend tip="Choose a photo if you want a “front page” but make sure you have the copyright!">i</Legend>
             </FormItem>
           </Container>
           <Container flex={[1, 1, "50%"]}>
@@ -259,17 +246,19 @@ export default class MetaForm extends React.Component {
               <Label>Your logo</Label>
               <Dropzone
                 accept="image/jpeg, image/jpg, image/svg, image/gif, image/png"
-                ref={(node) => {
+                ref={node => {
                   this.dropzoneRef2 = node;
                 }}
-                onDrop={(accepted) => {
+                onDrop={accepted => {
                   this.handleFile("logo", accepted);
                 }}
                 style={{ display: "none" }}
               >
                 <p>Drop file here</p>
               </Dropzone>
-              { this.state.formData && this.state.formData.logo ? <img src={this.state.formData.logo} alt="Logo Preview" style={{width: "100%"}}/> : null }
+              {this.state.formData && this.state.formData.logo ? (
+                <img src={this.state.formData.logo} alt="Logo Preview" style={{ width: "100%" }} />
+              ) : null}
               <TextInput
                 file
                 place="right"
@@ -305,8 +294,8 @@ MetaForm.propTypes = {
     cover: string,
     logo: string,
     pubDate: string,
-    title: string
-  })
+    title: string,
+  }),
 };
 
 MetaForm.defaultProps = {
@@ -320,6 +309,6 @@ MetaForm.defaultProps = {
     cover: "",
     logo: "",
     pubDate: "",
-    title: ""
-  }
+    title: "",
+  },
 };
