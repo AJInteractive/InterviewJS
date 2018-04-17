@@ -8,39 +8,40 @@ html{
   padding:0;
   margin:0;
   line-height: 1px;
-  color:#495abd;
+  color:#495bbd;
 }
 body {
   font-family: "PT Sans", Arial, sans-serif;
   color:#f7f7f7;
-  background-color:#495abd;
+  background-color:#495bbd;
   background-color:#ffffff;
 }
-  .videoContainerFULLSCREEN 
-{
-   height:1300px;
-   width:100%;
-   overflow: hidden;
-   z-index:9;
-   background-color: #495abd;
-   padding:50px;
-   padding-top:530px;
+#terms small{
+  display: block;
+}
+
+#terms big{
+  padding-top:20px;
+  display: block;
+}
+
+h3{
+  margin-top:10px;
+}
+
+h2{
+  margin-top:0px;
 }
   .videoContainerover 
 {
-   position:absolute;
-   height:700px;
-   width:100%;
-   overflow: hidden;
-   z-index:99;
    padding:50px;
    padding-top:90px;
 }
-.videoContainerFULLSCREEN video 
+/*.videoContainerFULLSCREEN video 
 {
    width: 100%;
    height: 100%;
-}
+}*/
 .whatis{
   position: absolute;
   margin-top:500px;
@@ -49,18 +50,18 @@ body {
   padding: 10px 20px;
 }
 .navbar-default{
-  background-color: #495abd;
+  background-color: #495bbd;
   border:1px solid rgba(255,255,255,0.1);
   font-size: 18px;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{
-  background-color: #495abd;
+  background-color: #495bbd;
 }
 .navbar-default .navbar-toggle{
   border-color:transparent;
 }
 .navbar-default .navbar-nav > li > a{
-  padding-top: 25px;
+  padding-top: 21px;
   padding-bottom: 0px;
 }
 .navbar-default .navbar-nav > li > a{
@@ -81,9 +82,7 @@ body {
 h1{
   font-weight: 700;
 }
-.rrssb-buttons.small-format li{
-  height:33px !important;
-}
+
 .example{
   margin-top:20px;
 }
@@ -91,10 +90,10 @@ h1{
   background-color:#ffffff;
   padding:20px;
   padding-bottom:100px;
-  color:#333333;
+  color:#28336e;
 }
 .blue{
-  background-color:#495abd;
+  background-color:#495bbd;
 }
 .strong-text{
   font-weight: 700;
@@ -102,7 +101,7 @@ h1{
 p{
   font-size:18px;
   text-align:left;
-  color:#333333;
+  color:#28336e;
   padding:0;
   margin:0;
 }
@@ -127,7 +126,7 @@ ol li{
   font-size: 18px;
 }
 .carousel-control.right, .carousel-control.left{
-  color:#495abd;
+  color:#495bbd;
 }
 .blue p{
   color:#eeeeee;
@@ -145,6 +144,11 @@ ol li{
     text-decoration: underline;
     font-weight: normal;
 }
+
+a:hover{
+  text-decoration: none;
+}
+
 .bluelink a:hover{
     color: #ffffff;
     text-decoration: underline;
@@ -156,20 +160,20 @@ ol li{
     font-weight: normal;
   }
 .blacktext {
-  color:#333333;
-  padding:20px;
+  color:#28336e;
+  padding:10px;
   font-size: 18px;
   font-family: "PT Sans", Arial, sans-serif;
 }
 .carousel-indicators li{
-    border: 1px solid #495abd;
+    border: 1px solid #495bbd;
     border-radius: 50%;
 }
 .carousel-indicators .active{
   width: 20px;
   height: 20px;
   margin: -2px;
-  border: 5px solid #495abd;
+  border: 5px solid #495bbd;
   border-radius: 50%;
 }
 .panel-body{
@@ -189,7 +193,7 @@ width:100%;
   margin-bottom:40px;
 }
 .brand-logo p {
-color: #333333;
+color: #28336e;
 font-size: 18px;
 text-align: center;
 }
@@ -198,7 +202,7 @@ text-align: center;
   display: block;
 }
 .foot{
-  background-color:#495abd;
+  background-color:#495bbd;
   padding:10px;
 }
 .foottag{
@@ -208,3 +212,40 @@ text-align: center;
 .foottag a{
   color:#ffffff;
 }
+
+.signup {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 20px;
+    align-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.28) 0px 2px 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    justify-content: center;
+    line-height: 1.2em;
+    max-width: 220px;
+    max-height: 220px;
+    text-align: center;
+    text-overflow: ellipsis;
+    background-color: rgb(255, 255, 255);
+    color: rgb(73, 91, 189);
+    min-height: 50px;
+    border-color: transparent;
+    border-radius: 100px;
+    border-style: solid;
+    border-width: 1px;
+    outline: none;
+    overflow: hidden;
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s, color 0.2s, opacity 0.2s, transform 0.2s;
+}
+
+button:hover{
+  text-decoration: none;
+  }
